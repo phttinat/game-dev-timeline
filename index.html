@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ทำเกมกับ AI · NDF Game Production</title>
-<meta name="description" content="สรุปจากฝั่ง NDF: 6 เกมที่ทำระหว่าง ส.ค.–พ.ย. 2026 ใช้เวลาเท่าไร เวลาไปอยู่ที่ขั้นไหน และใช้เครื่องมืออะไร">
+<title>การพัฒนาเกมร่วมกับ AI · NDF Game Production</title>
+<meta name="description" content="สรุปจากฝั่ง NDF: ระยะเวลาและเครื่องมือในการพัฒนา 6 เกม ระหว่าง ส.ค.–พ.ย. 2569">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -98,6 +98,24 @@
   .ticks span:first-child{transform:none}
   .ticks span:last-child{transform:translateX(-100%)}
 
+
+  /* duration chart: one bar per game, all starting at day 0; 15-week axis */
+  .c-going{background:repeating-linear-gradient(135deg,var(--coral) 0 8px,#F3A78D 8px 16px)}
+  .dchart{margin-top:22px}
+  .drow{display:grid;grid-template-columns:300px 1fr 330px;gap:0 24px;align-items:center;padding:13px 0;border-bottom:1px solid var(--w08)}
+  .dtrack{position:relative;height:40px;background:repeating-linear-gradient(90deg,var(--w08) 0 1px,transparent 1px 13.333%)}
+  .dseg{position:absolute;top:0;bottom:0}
+  .dseg.proto{background:var(--gold);border-radius:8px 0 0 8px}
+  .dseg.rest{background:var(--blue);border-radius:0 8px 8px 0}
+  .dseg.going{background:repeating-linear-gradient(135deg,var(--coral) 0 8px,#F3A78D 8px 16px);border-radius:8px}
+  .dlabel b{display:block;font-size:22px;font-weight:700;color:var(--ink);line-height:1.3}
+  .dlabel span{display:block;font-size:18px;color:var(--goldb);margin-top:2px}
+  .daxis{display:grid;grid-template-columns:300px 1fr 330px;gap:0 24px;margin-top:8px}
+  .dticks{position:relative;height:26px}
+  .dticks span{position:absolute;transform:translateX(-50%);font-size:17px;color:var(--w40);font-variant-numeric:tabular-nums}
+  .dticks span:first-child{transform:none}
+  .dunit{font-size:17px;color:var(--w40)}
+
   /* phase rows */
   .phases{margin-top:30px}
   .phase{display:grid;grid-template-columns:14px 400px 1fr;gap:0 30px;align-items:center;padding:18px 0;border-bottom:1px solid var(--w08)}
@@ -179,11 +197,11 @@
   <div class="glow" style="width:640px;height:640px;background:radial-gradient(circle,rgba(198,168,107,.09) 0%,transparent 70%);right:-120px;top:-120px"></div>
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">NDF · Game Production · 2026</div>
-    <h1>ทำเกมกับ AI<br><em>เร็วตรงไหน ช้าตรงไหน</em></h1>
+    <div class="kicker">NDF · Game Production · 2569</div>
+    <h1>การพัฒนาเกมร่วมกับ AI<br><em>ระยะเวลาและเครื่องมือที่ใช้</em></h1>
     <div class="rule"></div>
-    <div class="lead">สรุปจากฝั่ง NDF จาก 6 เกมที่ทำระหว่างเดือนสิงหาคมถึงพฤศจิกายน ว่าแต่ละเกมใช้เวลาเท่าไร เวลาส่วนใหญ่ไปอยู่ที่ขั้นไหน และใช้เครื่องมืออะไรบ้าง</div>
-    <div class="chips"><span>Crimson Raid</span><span>Catch a Butterfly</span><span>Order Up!</span><span>Constellation Maker</span><span>RobloxFloor</span><span>ลอยกระทง · กำลังทำ</span></div>
+    <div class="lead">สรุปจากฝั่ง NDF จาก 6 เกมที่พัฒนาในช่วงเดือนสิงหาคมถึงพฤศจิกายน 2569 ครอบคลุมระยะเวลาที่ใช้ในแต่ละเกม ขั้นตอนที่ใช้เวลามากที่สุด และเครื่องมือที่ใช้ในการพัฒนา</div>
+    <div class="chips"><span>Crimson Raid</span><span>Catch a Butterfly</span><span>Order Up!</span><span>Constellation Maker</span><span>RobloxFloor</span><span>ลอยกระทง (อยู่ระหว่างพัฒนา)</span></div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
 </section>
@@ -191,13 +209,13 @@
 <section class="slide" aria-label="คำตอบสั้น ๆ" data-foot="NDF · Game Production">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">คำตอบสั้น ๆ</div>
-    <h2>เปิดเล่นได้เร็ว แต่ทางที่เหลือ<br><em>ยาวกว่าหลายเท่า</em></h2>
+    <div class="kicker">สรุปผลภาพรวม</div>
+    <h2>ต้นแบบที่เล่นได้ใช้เวลาไม่นาน<br><em>แต่การพัฒนาจนถึงเวอร์ชันล่าสุดใช้เวลามากกว่าหลายเท่า</em></h2>
     <div class="stats" style="grid-template-columns:1fr 1fr;gap:64px;margin-top:52px">
-      <div class="stat hero"><b>1 วัน – 3 สัปดาห์</b><span>จากวันแรกจนได้ต้นแบบที่เล่นได้</span></div>
-      <div class="stat hero"><b>9–14 สัปดาห์</b><span>จากวันแรกถึงเวอร์ชันล่าสุด ของเกมใหญ่ 4 เกม</span></div>
+      <div class="stat hero"><b>1 วัน – 3 สัปดาห์</b><span>ตั้งแต่เริ่มพัฒนาจนได้ต้นแบบที่เล่นได้</span></div>
+      <div class="stat hero"><b>9–14 สัปดาห์</b><span>ตั้งแต่เริ่มพัฒนาจนถึงเวอร์ชันล่าสุด สำหรับเกมขนาดใหญ่ 4 เกม</span></div>
     </div>
-    <div class="lead" style="margin-top:44px">Order Up! ไปถึงวันเปิดขายใน 14 สัปดาห์ และย้ายทั้งเกมจาก Unity มาเว็บได้ใน 7 วันเพราะมี AI เขียนโค้ดกับเทสต์ ส่วนเวลาที่เหลือของทุกเกมหมดไปกับฮาร์ดแวร์จริง งานภาพ และบั๊กที่เจอเฉพาะตอนเล่นจริง ส่วนงานทางเดินพื้น LED อย่าง RobloxFloor ใช้ 8 วันทั้งงาน</div>
+    <div class="lead" style="margin-top:44px">Order Up! พัฒนาจนถึงวันเปิดจำหน่ายภายใน 14 สัปดาห์ และย้ายทั้งเกมจาก Unity มาเป็นเว็บได้ภายใน 7 วัน โดยใช้ AI เขียนโค้ดและชุดทดสอบ เวลาที่เหลือของทุกเกมใช้ไปกับการทดสอบบนฮาร์ดแวร์จริง งานภาพ และการแก้ไขข้อผิดพลาดที่พบระหว่างการใช้งานจริง ส่วนงานทางเดินพื้น LED อย่าง RobloxFloor ใช้เวลา 8 วันตลอดทั้งโครงการ</div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
 </section>
@@ -205,99 +223,68 @@
 <section class="slide" aria-label="เทียบกันเกมต่อเกม" data-foot="NDF · Game Production">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">6 เกมที่นำมาเทียบ</div>
-    <h2>เทียบกันเกมต่อเกม</h2>
+    <div class="kicker">เกมที่นำมาเปรียบเทียบ 6 เกม</div>
+    <h2>เปรียบเทียบระยะเวลาการพัฒนารายเกม</h2>
     <table class="tbl six">
-      <thead><tr><th style="width:27%">เกม</th><th style="width:17%">ต้นแบบเล่นได้</th><th style="width:17%">ถึงเวอร์ชันล่าสุด</th><th class="r" style="width:8%">Commit</th><th class="r" style="width:8%">คนทำ</th><th style="width:23%;padding-left:34px">จุดเด่น</th></tr></thead>
+      <thead><tr><th style="width:27%">เกม</th><th style="width:17%">ได้ต้นแบบที่เล่นได้</th><th style="width:17%">ถึงเวอร์ชันล่าสุด</th><th class="r" style="width:8%">Commit</th><th class="r" style="width:8%">ผู้พัฒนา</th><th style="width:23%;padding-left:34px">จุดเด่น</th></tr></thead>
       <tbody>
-        <tr><td><b>Crimson Raid</b><small>บอสไฟต์ 4 คน บนพื้น LED กับ 3 จอ</small></td><td class="g">~1.5 สัปดาห์<small>26 ส.ค.</small></td><td>~10 สัปดาห์<small>27 ต.ค.</small></td><td class="r">85</td><td class="r">~6</td><td style="padding-left:34px">AI ทำระบบใหม่เกือบทั้งเกมใน 5 วัน</td></tr>
-        <tr><td><b>Catch a Butterfly</b><small>MR จับผีเสื้อ หลายแว่นในห้องเดียว</small></td><td class="g">4 วัน<small>21 ส.ค.</small></td><td>9 สัปดาห์<small>19 ต.ค.</small></td><td class="r">24</td><td class="r">2</td><td style="padding-left:34px">ทุกแว่นเล่นครบลูปได้ในวันที่ 4</td></tr>
-        <tr class="star"><td><b>Order Up!</b><small>ครัวไทย MR เล่นพร้อมกัน 5 คน</small></td><td class="g">~3 สัปดาห์<small>จบต้นแบบ Unity 25 ส.ค.</small></td><td>14 สัปดาห์<small>วันเปิดขาย 12 พ.ย.</small></td><td class="r">561</td><td class="r">1 + AI</td><td style="padding-left:34px">ย้ายทั้งเกมจาก Unity มาเว็บใน 7 วัน</td></tr>
-        <tr><td><b>Constellation Maker</b><small>ต่อกลุ่มดาวบนพื้น LED คู่กับ iPad</small></td><td class="g">วันแรก<small>ต้นแบบเว็บ 6 ส.ค.</small></td><td>~10 สัปดาห์<small>14 ต.ค.</small></td><td class="r">133</td><td class="r">~4</td><td style="padding-left:34px">พื้น LED จอผนัง และ iPad เล่นพร้อมกัน</td></tr>
-        <tr><td><b>RobloxFloor</b><small>ทางเดินพื้น LED กับกำแพง 2 ฝั่ง</small></td><td class="g">วันแรก<small>23 ต.ค.</small></td><td>8 วัน<small>30 ต.ค.</small></td><td class="r">13</td><td class="r">3</td><td style="padding-left:34px">12 ธีม และ lidar 3 ตัว จบใน 8 วัน</td></tr>
-        <tr class="wait"><td><b>ลอยกระทง</b><small>กำลังทำ · รอข้อมูลจากเด็คของทีม</small></td><td>–</td><td>–</td><td class="r">–</td><td class="r">–</td><td style="padding-left:34px">–</td></tr>
+        <tr><td><b>Crimson Raid</b><small>บอสไฟต์ 4 คน บนพื้น LED กับ 3 จอ</small></td><td class="g">~1.5 สัปดาห์<small>26 ส.ค.</small></td><td>~10 สัปดาห์<small>27 ต.ค.</small></td><td class="r">85</td><td class="r">~6</td><td style="padding-left:34px">ใช้ AI พัฒนาระบบใหม่เกือบทั้งเกมภายใน 5 วัน</td></tr>
+        <tr><td><b>Catch a Butterfly</b><small>MR จับผีเสื้อ หลายแว่นในห้องเดียว</small></td><td class="g">4 วัน<small>21 ส.ค.</small></td><td>9 สัปดาห์<small>19 ต.ค.</small></td><td class="r">24</td><td class="r">2</td><td style="padding-left:34px">ผู้เล่นทุกแว่นเล่นครบวงจรได้ตั้งแต่วันที่ 4</td></tr>
+        <tr class="star"><td><b>Order Up!</b><small>ครัวไทย MR เล่นพร้อมกัน 5 คน</small></td><td class="g">~3 สัปดาห์<small>จบต้นแบบ Unity 25 ส.ค.</small></td><td>14 สัปดาห์<small>วันเปิดจำหน่าย 12 พ.ย.</small></td><td class="r">561</td><td class="r">1 + AI</td><td style="padding-left:34px">ย้ายทั้งเกมจาก Unity มาเป็นเว็บภายใน 7 วัน</td></tr>
+        <tr><td><b>Constellation Maker</b><small>ต่อกลุ่มดาวบนพื้น LED คู่กับ iPad</small></td><td class="g">วันแรก<small>ต้นแบบเว็บ 6 ส.ค.</small></td><td>~10 สัปดาห์<small>14 ต.ค.</small></td><td class="r">133</td><td class="r">~4</td><td style="padding-left:34px">พื้น LED จอผนัง และ iPad ทำงานพร้อมกัน</td></tr>
+        <tr><td><b>RobloxFloor</b><small>ทางเดินพื้น LED กับกำแพง 2 ฝั่ง</small></td><td class="g">วันแรก<small>23 ต.ค.</small></td><td>8 วัน<small>30 ต.ค.</small></td><td class="r">13</td><td class="r">3</td><td style="padding-left:34px">12 ธีม และ lidar 3 ตัว แล้วเสร็จภายใน 8 วัน</td></tr>
+        <tr><td><b>ลอยกระทง</b><small>พื้น LED กับผนังจอโค้ง · อยู่ระหว่างพัฒนา</small></td><td class="g">–<small>ยังไม่ระบุ</small></td><td>4 วัน<small>ณ 12 พ.ย. ยังพัฒนาต่อ</small></td><td class="r">–</td><td class="r">–</td><td style="padding-left:34px">ปรับภาพมาแล้วกว่า 23 เวอร์ชันใน 4 วัน</td></tr>
       </tbody>
     </table>
-    <div class="lead" style="font-size:19px;margin-top:20px">นับวันตามปฏิทินจาก commit แรก ไม่ได้แปลว่าทำเต็มวันทุกวัน · “คนทำ” คือจำนวนคนที่ commit โค้ดหรือ Art · Constellation Maker รวม 3 repo</div>
+    <div class="lead" style="font-size:19px;margin-top:20px">หมายเหตุ: นับเป็นวันตามปฏิทินนับจาก commit แรก ไม่ได้หมายถึงการทำงานเต็มวันทุกวัน · “ผู้พัฒนา” หมายถึงจำนวนผู้ที่ commit โค้ดหรืองานภาพ · ข้อมูล Constellation Maker รวมจาก 3 repository</div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<section class="slide" aria-label="ปฏิทินของทุกเกม" data-foot="NDF · Game Production">
+<section class="slide" aria-label="ระยะเวลาการพัฒนาของแต่ละเกม" data-foot="NDF · Game Production">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">ปฏิทินเดียวกัน · ส.ค. – พ.ย. 2026</div>
-    <h2>แถบส่วนใหญ่อยู่หลัง<em>วันที่เปิดเล่นได้</em></h2>
+    <div class="kicker">ระยะเวลาการพัฒนา · นับจากวันเริ่มของแต่ละเกม</div>
+    <h2>เกมขนาดใหญ่ใช้เวลาส่วนใหญ่<em>หลังจากได้ต้นแบบแล้ว</em></h2>
     <div class="legend">
-      <span><i class="c-build"></i>สร้างระบบเกม</span>
-      <span><i class="c-art"></i>ภาพ เสียง และเอฟเฟกต์</span>
-      <span><i class="c-test"></i>ทดสอบในสนามจริงและขัดเกลา</span>
-      <span>ตัวเลขในแถบ = จำนวน commit</span>
+      <span><i class="c-build"></i>ช่วงทำต้นแบบจนเล่นได้</span>
+      <span><i class="c-art"></i>ช่วงหลังจากนั้นจนถึงเวอร์ชันล่าสุด</span>
+      <span><i class="c-going"></i>อยู่ระหว่างพัฒนา</span>
     </div>
-    <div class="gantt">
-      <div class="grow">
+    <div class="dchart">
+      <div class="drow">
+        <div class="gname">Order Up!<span>MR ครัว 5 คน</span></div>
+        <div class="dtrack"><div class="dseg proto" style="left:0;width:18.10%"></div><div class="dseg rest" style="left:18.10%;width:75.24%"></div></div>
+        <div class="dlabel"><b>รวม 14 สัปดาห์ ถึงวันเปิดจำหน่าย</b><span>ต้นแบบ ~3 สัปดาห์</span></div>
+      </div>
+      <div class="drow">
         <div class="gname">Crimson Raid<span>พื้น LED กับ 3 จอ</span></div>
-        <div class="track">
-          <div class="seg c-build" style="left:13.33%;width:10.48%">15</div>
-          <div class="seg c-art" style="left:27.62%;width:10.48%">24</div>
-          <div class="seg c-art" style="left:40.95%;width:17.14%">22</div>
-          <div class="seg c-build" style="left:60%;width:4.76%">20</div>
-          <div class="seg c-test" style="left:68.57%;width:13.33%">4</div>
-          <div class="mark" style="left:21.9%"><em>เล่นได้ 26 ส.ค.</em></div>
-        </div>
+        <div class="dtrack"><div class="dseg proto" style="left:0;width:8.57%"></div><div class="dseg rest" style="left:8.57%;width:59.05%"></div></div>
+        <div class="dlabel"><b>รวม ~10 สัปดาห์</b><span>ต้นแบบ ~1.5 สัปดาห์</span></div>
       </div>
-      <div class="grow">
-        <div class="gname">Catch a Butterfly<span>MR หลายแว่น</span></div>
-        <div class="track">
-          <div class="seg c-build" style="left:14.29%;width:7.4%">5</div>
-          <div class="seg c-build" style="left:22.1%;width:12.1%">6</div>
-          <div class="seg c-art" style="left:40%;width:14.29%">8</div>
-          <div class="seg c-test" style="left:60%;width:14.29%">5</div>
-          <div class="mark" style="left:17.14%"><em>เล่นได้ 21 ส.ค.</em></div>
-        </div>
-      </div>
-      <div class="grow">
-        <div class="gname">Order Up!<span>MR ครัว 5 คน · Unity แล้วเว็บ</span></div>
-        <div class="track">
-          <div class="seg c-build" style="left:2.86%;width:19.05%">51</div>
-          <div class="seg c-build" style="left:37.14%;width:32.1%">81</div>
-          <div class="seg c-build" style="left:69.52%;width:6.67%">146</div>
-          <div class="seg c-test" style="left:80%;width:5.71%">99</div>
-          <div class="seg c-art" style="left:86.67%;width:4.5%">124</div>
-          <div class="seg c-art" style="left:91.43%;width:4.76%">47</div>
-          <div class="seg c-test" style="left:96.19%;width:1.1%"></div>
-          <div class="mark" style="left:20.95%"><em>จบต้นแบบ 25 ส.ค.</em></div>
-          <div class="mark end" style="left:97.3%"><em>เปิดขาย 12 พ.ย.</em></div>
-        </div>
-      </div>
-      <div class="grow">
+      <div class="drow">
         <div class="gname">Constellation Maker<span>พื้น LED · จอผนัง · iPad</span></div>
-        <div class="track">
-          <div class="seg c-build" style="left:2.86%;width:5.71%">19</div>
-          <div class="seg c-build" style="left:9.52%;width:26.67%">18</div>
-          <div class="seg c-build" style="left:46.67%;width:10.48%">49</div>
-          <div class="seg c-art" style="left:60%;width:3.81%">35</div>
-          <div class="seg c-test" style="left:67.62%;width:2.2%">10</div>
-          <div class="mark" style="left:2.86%"><em>เล่นได้ 6 ส.ค.</em></div>
-        </div>
+        <div class="dtrack"><div class="dseg proto" style="left:0;width:0.95%"></div><div class="dseg rest" style="left:0.95%;width:64.76%"></div></div>
+        <div class="dlabel"><b>รวม ~10 สัปดาห์</b><span>ต้นแบบเว็บ 1 วัน</span></div>
       </div>
-      <div class="grow">
-        <div class="gname">RobloxFloor<span>ทางเดินพื้น LED · 8 วัน</span></div>
-        <div class="track">
-          <div class="seg c-build" style="left:77.14%;width:0.95%"></div>
-          <div class="seg c-art" style="left:78.2%;width:3.7%"></div>
-          <div class="seg c-art" style="left:82.1%;width:1.8%"></div>
-          <div class="mark" style="left:77.14%"><em>เล่นได้ 23 ต.ค.</em></div>
-        </div>
+      <div class="drow">
+        <div class="gname">Catch a Butterfly<span>MR หลายแว่น</span></div>
+        <div class="dtrack"><div class="dseg proto" style="left:0;width:2.86%"></div><div class="dseg rest" style="left:2.86%;width:56.19%"></div></div>
+        <div class="dlabel"><b>รวม 9 สัปดาห์</b><span>ต้นแบบ 4 วัน</span></div>
       </div>
-      <div class="grow wait">
-        <div class="gname">ลอยกระทง<span>กำลังทำ</span></div>
-        <div class="track" style="border:2px dashed var(--w12);border-radius:10px;background:none;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--w40)">รอข้อมูลจากเด็คของทีม</div>
+      <div class="drow">
+        <div class="gname">RobloxFloor<span>ทางเดินพื้น LED</span></div>
+        <div class="dtrack"><div class="dseg proto" style="left:0;width:0.95%"></div><div class="dseg rest" style="left:0.95%;width:5.71%"></div></div>
+        <div class="dlabel"><b>รวม 8 วัน</b><span>เล่นได้ตั้งแต่วันแรก</span></div>
       </div>
-      <div class="ticks"><div></div><div>
-        <span style="left:0%">3 ส.ค.</span><span style="left:27.62%">1 ก.ย.</span><span style="left:56.19%">1 ต.ค.</span><span style="left:85.71%">1 พ.ย.</span><span style="left:100%">16 พ.ย.</span>
-      </div></div>
+      <div class="drow">
+        <div class="gname">ลอยกระทง<span>อยู่ระหว่างพัฒนา</span></div>
+        <div class="dtrack"><div class="dseg going" style="left:0;width:3.81%"></div></div>
+        <div class="dlabel"><b>4 วัน และยังพัฒนาต่อ</b><span>เริ่ม 9 พ.ย.</span></div>
+      </div>
+      <div class="daxis"><div></div><div class="dticks"><span style="left:0.00%">0</span><span style="left:13.33%">2</span><span style="left:26.67%">4</span><span style="left:40.00%">6</span><span style="left:53.33%">8</span><span style="left:66.67%">10</span><span style="left:80.00%">12</span><span style="left:93.33%">14</span></div><div class="dunit">สัปดาห์</div></div>
     </div>
+    <div class="lead" style="font-size:19px;margin-top:14px">ทุกแถบเริ่มนับจากวันแรกของเกมนั้น จึงเทียบความยาวกันได้โดยตรง · นับเป็นวันตามปฏิทินจากประวัติ commit</div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
 </section>
@@ -309,13 +296,13 @@
   <div class="body">
     <div class="ghost">01</div>
     <div class="kicker">เกมที่ 1 · Crimson Raid · Main Arena</div>
-    <h2>4 ฮีโร่ตอบคำถาม AI<br><em>แล้วสู้มังกรบนพื้น LED</em></h2>
-    <div class="lead">ผู้เล่นยืนบน Pad ของพื้น LED เลือกโจมตีหรือใช้สกิล ตอบคำถาม A–D ให้ถูก แล้ววิ่งหลบท่าโจมตีของบอสมังกร Wyrn บนพื้นจริง บอสมี 3 Phase</div>
+    <h2>ผู้เล่น 4 คนตอบคำถามเรื่อง AI<br><em>เพื่อต่อสู้กับบอสมังกรบนพื้น LED</em></h2>
+    <div class="lead">ผู้เล่นยืนบนตำแหน่งของตนบนพื้น LED เลือกโจมตีหรือใช้ทักษะพิเศษ ตอบคำถามแบบ 4 ตัวเลือกให้ถูกต้อง และเคลื่อนที่หลบการโจมตีของบอสมังกร Wyrn บนพื้นจริง โดยบอสมี 3 ระยะ</div>
     <div class="stats" style="grid-template-columns:repeat(4,1fr)">
-      <div class="stat"><b>4</b><span>อาชีพ แต่ละอาชีพได้คำถามคนละหมวด</span></div>
-      <div class="stat"><b>3 จอ</b><span>ทำงานพร้อมกัน รวมพื้น LED ที่รับการเหยียบ</span></div>
+      <div class="stat"><b>4</b><span>บทบาท แต่ละบทบาทได้รับคำถามต่างหมวดกัน</span></div>
+      <div class="stat"><b>3 จอ</b><span>ที่ทำงานพร้อมกัน รวมพื้น LED ที่ตรวจจับการเหยียบ</span></div>
       <div class="stat"><b>40</b><span>คำถามเรื่อง AI ภาษาไทย</span></div>
-      <div class="stat"><b>11</b><span>ท่าบอส รวมท่าสถานะ ฮีล และโล่</span></div>
+      <div class="stat"><b>11</b><span>รูปแบบการโจมตีของบอส รวมท่าสถานะ การฟื้นพลัง และโล่</span></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -325,13 +312,13 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Crimson Raid · 17 ส.ค. – 27 ต.ค. · 85 commit</div>
-    <h2>5 ช่วงของงาน</h2>
+    <h2>ขั้นตอนการพัฒนา 5 ช่วง</h2>
     <div class="phases">
-      <div class="phase"><i class="c-build"></i><h3>ต้นแบบ<small>17–27 ส.ค. · 15 commit</small></h3><p>ลูปหลัก ระบบคำถาม การอ่านการเหยียบพื้น LED และสกิล <b>เปิดเล่นได้ 26 ส.ค.</b></p></div>
-      <div class="phase"><i class="c-art"></i><h3>กราฟิก เสียง เอฟเฟกต์<small>ราว 1–11 ก.ย. · 24 commit</small></h3><p>ไฟพ่นของมังกร และหัว 3D ของผู้เล่นจาก Fortal ID Kiosk</p></div>
-      <div class="phase"><i class="c-art"></i><h3>ยกเครื่องภาพ<small>ราว 15 ก.ย. – 2 ต.ค. · 22 commit</small></h3><p>UI ใหม่ ฉาก Neon Model และ Animation พร้อมทดสอบบนพื้นจริง</p></div>
-      <div class="phase"><i class="c-build"></i><h3>BossFight v2<small>5–9 ต.ค. · 20 commit</small></h3><p>ใช้ AI ช่วยเขียนโค้ด ได้ท่าบอสครบ 6 ท่า Mini-game หลบ 5 แบบ และคำถาม 40 ข้อ <b>ใน 5 วัน</b></p></div>
-      <div class="phase"><i class="c-test"></i><h3>ขัดเกลาหน้างาน<small>ราว 14–27 ต.ค. · 4 commit</small></h3><p>บทสอนเล่น ฉากจบ เสียง และเมนู Kiosk แต่ละ commit แก้ 25–118 ไฟล์</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ต้นแบบ<small>17–27 ส.ค. · 15 commit</small></h3><p>วงจรการเล่นหลัก ระบบคำถาม การตรวจจับการเหยียบพื้น LED และทักษะพิเศษ <b>เล่นได้ตั้งแต่ 26 ส.ค.</b></p></div>
+      <div class="phase"><i class="c-art"></i><h3>กราฟิก เสียง เอฟเฟกต์<small>ราว 1–11 ก.ย. · 24 commit</small></h3><p>เอฟเฟกต์ไฟของมังกร และศีรษะ 3 มิติของผู้เล่นจาก Fortal ID Kiosk</p></div>
+      <div class="phase"><i class="c-art"></i><h3>ปรับปรุงภาพทั้งหมด<small>ราว 15 ก.ย. – 2 ต.ค. · 22 commit</small></h3><p>ออกแบบ UI ฉาก Neon โมเดล และแอนิเมชันใหม่ พร้อมทดสอบบนพื้นจริง</p></div>
+      <div class="phase"><i class="c-build"></i><h3>BossFight v2<small>5–9 ต.ค. · 20 commit</small></h3><p>ใช้ AI ช่วยเขียนโค้ด ได้รูปแบบการโจมตีของบอสครบ 6 ท่า มินิเกมหลบหลีก 5 แบบ และคำถาม 40 ข้อ <b>ภายใน 5 วัน</b></p></div>
+      <div class="phase"><i class="c-test"></i><h3>ปรับปรุงสำหรับหน้างาน<small>ราว 14–27 ต.ค. · 4 commit</small></h3><p>บทแนะนำการเล่น ฉากจบ เสียง และเมนู Kiosk โดยแต่ละ commit แก้ไข 25–118 ไฟล์</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -340,19 +327,19 @@
 <section class="slide" aria-label="Crimson Raid เวลาหมดไปกับอะไร" data-foot="เกมที่ 1 · Crimson Raid">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">Crimson Raid · หลังเปิดเล่นได้</div>
-    <h2>เวลาที่เหลือหมดไปกับอะไร</h2>
+    <div class="kicker">Crimson Raid · หลังได้ต้นแบบที่เล่นได้</div>
+    <h2>งานที่ใช้เวลาหลังได้ต้นแบบ</h2>
     <div class="cards" style="grid-template-columns:repeat(3,1fr)">
-      <div class="card"><h3>แก้บั๊ก</h3><p>กด action ได้ทั้งที่ยังไม่ตอบ เกมไม่เริ่มใน Build เพราะลำดับการโหลด และฉากจบต้องมีตัวกันค้าง</p></div>
-      <div class="card"><h3>ฮาร์ดแวร์สนาม</h3><p>แยกงานลง 3 จอ ทำ Map ของพื้น LED และวางไฟล์ตั้งค่า LED ไว้ข้าง exe</p></div>
-      <div class="card"><h3>Balance</h3><p>เวลาหลบ MeteorRain เพิ่มจาก 1 เป็น 2.5 วินาที และทุกท่าต้องหลบได้อย่างน้อย 2 วินาที</p></div>
-      <div class="card"><h3>สอนผู้เล่นให้เข้าใจเอง</h3><p>วิดีโอ Intro 2:52 พากย์ไทย เสียงพากย์ 39 ประโยค และ Demo สอนทุก Mini-game</p></div>
-      <div class="card"><h3>กราฟิก</h3><p>ยกเครื่อง UI 2 รอบ ฉาก Neon Model ฮีโร่ใหม่ และฉากบอสตายกับทีมแพ้</p></div>
-      <div class="card"><h3>เสียง</h3><p>BGM แยก Lobby, Battle และ Phase 3 พร้อมเมนูปรับเสียงที่หน้างาน</p></div>
+      <div class="card"><h3>การแก้ไขข้อผิดพลาด</h3><p>ผู้เล่นกดคำสั่งได้ทั้งที่ยังไม่ตอบคำถาม เกมไม่เริ่มทำงานในไฟล์ Build เนื่องจากลำดับการโหลด และฉากจบต้องมีกลไกป้องกันการค้าง</p></div>
+      <div class="card"><h3>ฮาร์ดแวร์ในสถานที่จริง</h3><p>แยกการแสดงผลลง 3 จอ จัดทำผังพื้น LED และวางไฟล์ตั้งค่า LED ไว้คู่กับไฟล์โปรแกรม</p></div>
+      <div class="card"><h3>การปรับสมดุลเกม</h3><p>เพิ่มเวลาหลบ MeteorRain จาก 1 เป็น 2.5 วินาที และกำหนดให้ทุกท่าหลบได้อย่างน้อย 2 วินาที</p></div>
+      <div class="card"><h3>การแนะนำผู้เล่น</h3><p>วิดีโอแนะนำความยาว 2 นาที 52 วินาที พากย์ภาษาไทย เสียงพากย์ 39 ประโยค และ Demo สอนทุกมินิเกม</p></div>
+      <div class="card"><h3>กราฟิก</h3><p>ปรับ UI ใหม่ 2 รอบ ฉาก Neon โมเดลตัวละครใหม่ และฉากบอสพ่ายแพ้กับฉากทีมแพ้</p></div>
+      <div class="card"><h3>เสียง</h3><p>เพลงประกอบแยกตาม Lobby, Battle และ Phase 3 พร้อมเมนูปรับระดับเสียงสำหรับหน้างาน</p></div>
     </div>
     <div class="callouts">
-      <div class="callout"><b>AI ช่วยตรงไหน</b><p>ช่วง BossFight v2 ทำระบบใหม่เกือบทั้งเกมใน 5 วัน และตั้งแต่ 5 ต.ค. มี 13 commit ที่เขียนร่วมกับ Claude</p></div>
-      <div class="callout warn"><b>ยังค้าง</b><p>หัว 3D จาก Fortal ID ยังปิดไว้ในฉากเล่น และยังต้องทดสอบกับผู้เล่นจริงที่สนาม</p></div>
+      <div class="callout"><b>บทบาทของ AI</b><p>ช่วง BossFight v2 พัฒนาระบบใหม่เกือบทั้งเกมภายใน 5 วัน และตั้งแต่ 5 ต.ค. มี 13 commit ที่เขียนร่วมกับ Claude</p></div>
+      <div class="callout warn"><b>งานคงค้าง</b><p>ระบบศีรษะ 3 มิติจาก Fortal ID ยังปิดใช้งานในฉากเล่น และยังต้องทดสอบกับผู้เล่นจริงในสถานที่</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -365,12 +352,12 @@
   <div class="body">
     <div class="ghost">02</div>
     <div class="kicker">เกมที่ 2 · Catch a Butterfly · Mixed Reality</div>
-    <h2>จับผีเสื้อในห้องจริง<br><em>แล้วส่งให้ตรงกับ Order</em></h2>
-    <div class="lead">ผู้เล่นใส่ Meta Quest 3 เดินในห้องจริง เหวี่ยงสวิงจับผีเสื้อที่บินอยู่รอบตัว แล้วนำไปปล่อยในตู้กระจกบนกำแพงให้ตรงกับชนิดที่ Order ต้องการ หลายคนเล่นพร้อมกันในห้องเดียว</div>
+    <h2>จับผีเสื้อในห้องจริง<br><em>และส่งให้ตรงตามคำสั่ง</em></h2>
+    <div class="lead">ผู้เล่นสวมแว่น Meta Quest 3 เคลื่อนที่ในห้องจริง ใช้สวิงจับผีเสื้อที่บินอยู่โดยรอบ แล้วนำไปปล่อยในตู้กระจกบนผนังให้ตรงกับชนิดที่คำสั่ง (Order) กำหนด ผู้เล่นหลายคนเล่นพร้อมกันในห้องเดียวกันได้</div>
     <div class="stats" style="grid-template-columns:repeat(4,1fr)">
       <div class="stat"><b>8</b><span>ชนิดผีเสื้อ แบ่งความยาก 3 ระดับ</span></div>
       <div class="stat"><b>8 นาที</b><span>ต่อหนึ่งรอบ</span></div>
-      <div class="stat"><b>3 ตัว</b><span>ต่อหนึ่ง Order และ Order ละ 1 นาที</span></div>
+      <div class="stat"><b>3 ตัว</b><span>ต่อหนึ่งคำสั่ง ใช้เวลาคำสั่งละ 1 นาที</span></div>
       <div class="stat"><b>21–26</b><span>ผีเสื้อที่บินอยู่ในห้อง รวมตัวหลอก</span></div>
     </div>
   </div>
@@ -381,12 +368,12 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Catch a Butterfly · 18 ส.ค. – 19 ต.ค. · 24 commit</div>
-    <h2>4 ช่วงของงาน</h2>
+    <h2>ขั้นตอนการพัฒนา 4 ช่วง</h2>
     <div class="phases">
-      <div class="phase"><i class="c-build"></i><h3>ต้นแบบที่เล่นได้<small>18–25 ส.ค. · 5 commit</small></h3><p><b>21 ส.ค. ทุกแว่นเล่นรอบเดียวกันได้ครบลูป</b> จากนั้นเพิ่ม UI และตู้กระจกสำหรับส่งผีเสื้อ</p></div>
-      <div class="phase"><i class="c-build"></i><h3>ความรู้สึกตอนจับ<small>26 ส.ค. – 7 ก.ย. · 6 commit</small></h3><p>ควันตอนผีเสื้อเกิด ผีเสื้อบินออกจากกำแพง จับด้วยการเหวี่ยงสวิงตามทิศ และปรับตู้ให้พอดีกำแพง</p></div>
-      <div class="phase"><i class="c-art"></i><h3>งานภาพตู้ Terrarium<small>14–28 ก.ย. · 8 commit</small></h3><p>ตู้ 3 เวอร์ชัน เปลี่ยนพื้นผิวหิน 3 ครั้งในวันเดียว และทำตู้ให้ยืดตามกำแพงโดยของในตู้ไม่เพี้ยน</p></div>
-      <div class="phase"><i class="c-test"></i><h3>ให้หลายแว่นเล่นด้วยกันได้นิ่ง<small>5–19 ต.ค. · 5 commit</small></h3><p>แก้เรื่องใครถือผีเสื้อตัวไหนผ่าน LAN กู้ตำแหน่งห้องเมื่อแว่นหลุด ให้ PC ตัดสินเกมพร้อมหน้าจอคนดู และแก้อาการเล่นนานแล้วจับไม่ติด</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ต้นแบบที่เล่นได้<small>18–25 ส.ค. · 5 commit</small></h3><p><b>21 ส.ค. ผู้เล่นทุกแว่นเล่นรอบเดียวกันได้ครบวงจร</b> จากนั้นเพิ่ม UI และตู้กระจกสำหรับส่งผีเสื้อ</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ความรู้สึกขณะจับ<small>26 ส.ค. – 7 ก.ย. · 6 commit</small></h3><p>เอฟเฟกต์ควันขณะผีเสื้อปรากฏ ผีเสื้อบินออกจากผนัง การจับด้วยการเหวี่ยงสวิงตามทิศทาง และปรับตู้ให้พอดีกับผนัง</p></div>
+      <div class="phase"><i class="c-art"></i><h3>งานภาพตู้ Terrarium<small>14–28 ก.ย. · 8 commit</small></h3><p>พัฒนาตู้ 3 เวอร์ชัน เปลี่ยนพื้นผิวหิน 3 ครั้งภายในวันเดียว และปรับตู้ให้ขยายตามผนังโดยของตกแต่งภายในไม่ผิดสัดส่วน</p></div>
+      <div class="phase"><i class="c-test"></i><h3>ความเสถียรเมื่อเล่นหลายแว่น<small>5–19 ต.ค. · 5 commit</small></h3><p>แก้ไขการระบุผู้ถือผีเสื้อผ่าน LAN กู้คืนตำแหน่งห้องเมื่อแว่นขาดการติดตาม ให้ PC เป็นผู้ตัดสินผลพร้อมหน้าจอสำหรับผู้ชม และแก้ไขปัญหาจับผีเสื้อไม่ได้เมื่อเล่นต่อเนื่องเป็นเวลานาน</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -395,17 +382,17 @@
 <section class="slide" aria-label="Catch a Butterfly เวลาหมดไปกับอะไร" data-foot="เกมที่ 2 · Catch a Butterfly">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">Catch a Butterfly · หลังเปิดเล่นได้</div>
-    <h2>เวลาที่เหลือหมดไปกับอะไร</h2>
+    <div class="kicker">Catch a Butterfly · หลังได้ต้นแบบที่เล่นได้</div>
+    <h2>งานที่ใช้เวลาหลังได้ต้นแบบ</h2>
     <div class="cards" style="grid-template-columns:1fr 1fr">
-      <div class="card"><h3>ทุกแว่นต้องเห็นผีเสื้อตัวเดียวกัน</h3><p>สองคนเหวี่ยงสวิงใส่ตัวเดียวกัน ระบบต้องให้คนเดียวได้และคะแนนต้องไม่นับซ้ำ ทีมเขียนชุดทดสอบเรื่องนี้ 14 กรณี และผ่านครบใน Unity</p></div>
-      <div class="card"><h3>ห้องจริงต้องตรงกันทุกเครื่อง</h3><p>แว่นหลักสแกนห้องเครื่องเดียว เครื่องอื่นต้องหาตำแหน่งในห้องเดียวกันให้เจอ และต้องกู้กลับเองเมื่อถอดแว่นหรือแว่นพักหน้าจอ</p></div>
-      <div class="card"><h3>บั๊กที่โผล่หลังเล่นไปนาน</h3><p>บางเครื่องจับผีเสื้อไม่ติดจนต้องออกแล้วเข้าใหม่ ใน log พบคิวส่งข้อมูลเต็ม 543 ครั้ง จึงลดข้อมูลที่ส่งซ้ำจากทุก 1 วินาทีเป็นทุก 2 วินาที</p></div>
-      <div class="card"><h3>งานภาพต้องลองหลายรอบ</h3><p>ตู้ Terrarium ทำ 3 เวอร์ชัน และต้องยืดตามกำแพงของแต่ละห้อง โดยหญ้าและหินในตู้ไม่ยืดตามจนเละ</p></div>
+      <div class="card"><h3>ทุกแว่นต้องเห็นผีเสื้อตัวเดียวกัน</h3><p>เมื่อผู้เล่นสองคนเหวี่ยงสวิงใส่ผีเสื้อตัวเดียวกัน ระบบต้องให้สิทธิ์แก่ผู้เล่นเพียงคนเดียวและไม่นับคะแนนซ้ำ ทีมจัดทำชุดทดสอบกรณีนี้ 14 กรณี และผ่านทั้งหมดใน Unity</p></div>
+      <div class="card"><h3>ตำแหน่งห้องจริงต้องตรงกันทุกเครื่อง</h3><p>แว่นหลักสแกนห้องเพียงเครื่องเดียว เครื่องอื่นต้องระบุตำแหน่งในห้องเดียวกันให้ได้ และต้องกู้คืนตำแหน่งเองเมื่อถอดแว่นหรือแว่นเข้าสู่โหมดพักหน้าจอ</p></div>
+      <div class="card"><h3>ข้อผิดพลาดที่เกิดเมื่อเล่นต่อเนื่อง</h3><p>บางเครื่องจับผีเสื้อไม่ได้จนต้องออกจากเกมแล้วเข้าใหม่ บันทึกระบบพบคิวส่งข้อมูลเต็ม 543 ครั้ง จึงลดความถี่ของข้อมูลที่ส่งซ้ำจากทุก 1 วินาทีเป็นทุก 2 วินาที</p></div>
+      <div class="card"><h3>งานภาพที่ต้องปรับหลายรอบ</h3><p>ตู้ Terrarium พัฒนา 3 เวอร์ชัน และต้องขยายตามผนังของแต่ละห้อง โดยหญ้าและหินภายในตู้ไม่ผิดสัดส่วน</p></div>
     </div>
     <div class="callouts">
-      <div class="callout"><b>AI ช่วยตรงไหน</b><p>ทีมใช้ Codex ช่วยเขียนโค้ด และเขียนเอกสารส่งต่องาน 1,150 บรรทัดไว้ให้ Claude ทำต่อ</p></div>
-      <div class="callout warn"><b>ยังค้าง</b><p>ยังไม่ได้เล่นยาวด้วยแว่นหลายเครื่องหลังแก้ และชื่อผีเสื้อ Bhutanitis สะกดไม่ตรงกับโค้ด คะแนนพิเศษของชนิดนี้จึงไม่ทำงาน</p></div>
+      <div class="callout"><b>บทบาทของ AI</b><p>ทีมใช้ Codex ช่วยเขียนโค้ด และจัดทำเอกสารส่งต่องาน 1,150 บรรทัดให้ Claude ดำเนินการต่อ</p></div>
+      <div class="callout warn"><b>งานคงค้าง</b><p>ยังไม่ได้ทดสอบการเล่นต่อเนื่องกับแว่นหลายเครื่องหลังการแก้ไข และชื่อผีเสื้อ Bhutanitis ในข้อมูลสะกดไม่ตรงกับโค้ด ทำให้คะแนนพิเศษของชนิดนี้ไม่ทำงาน</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -418,13 +405,13 @@
   <div class="body">
     <div class="ghost">03</div>
     <div class="kicker">เกมที่ 3 · Order Up! · Mixed Reality</div>
-    <h2>ครัวไทยในห้องจริง<br><em>เล่นพร้อมกันได้ 5 คน</em></h2>
-    <div class="lead">ผู้เล่นใส่ Meta Quest 3 ยืนในครัวเดียวกันในห้องจริง แบ่งหน้าที่กัน 5 ตำแหน่ง หัวหน้าเชฟอ่าน Order ให้ทีมฟัง แล้วช่วยกันตวง ผัด และส่งอาหาร เกมนี้ทำสองรอบ รอบแรกด้วย Unity แล้วย้ายทั้งเกมมาเว็บเพื่อให้เปิดจากลิงก์ได้ทันที</div>
+    <h2>ครัวไทยในห้องจริง<br><em>รองรับผู้เล่นพร้อมกัน 5 คน</em></h2>
+    <div class="lead">ผู้เล่นสวมแว่น Meta Quest 3 ยืนในครัวเดียวกันภายในห้องจริง แบ่งหน้าที่กัน 5 ตำแหน่ง หัวหน้าเชฟอ่านคำสั่งอาหารให้ทีมฟัง และทุกคนร่วมกันตวง ผัด และส่งอาหาร เกมนี้พัฒนาสองรอบ รอบแรกด้วย Unity จากนั้นย้ายทั้งเกมมาเป็นเว็บเพื่อให้เปิดใช้งานจากลิงก์ได้ทันที</div>
     <div class="stats" style="grid-template-columns:repeat(4,1fr)">
-      <div class="stat"><b>99 วัน</b><span>ตั้งแต่ 6 ส.ค. ถึงวันเปิดขาย 12 พ.ย.</span></div>
+      <div class="stat"><b>99 วัน</b><span>ตั้งแต่ 6 ส.ค. ถึงวันเปิดจำหน่าย 12 พ.ย.</span></div>
       <div class="stat"><b>561</b><span>commit โดย 537 commit เขียนร่วมกับ AI</span></div>
-      <div class="stat"><b>1,943</b><span>เทสต์ที่ต้องผ่านก่อนขึ้นเว็บทุกครั้ง</span></div>
-      <div class="stat"><b>2</b><span>คนทำ: Mond ออกแบบและเล่นทดสอบ Almondo (AI) เขียนโค้ดและแก้บั๊ก</span></div>
+      <div class="stat"><b>1,943</b><span>ชุดทดสอบที่ต้องผ่านก่อนเผยแพร่ทุกครั้ง</span></div>
+      <div class="stat"><b>2</b><span>ผู้พัฒนา: Mond ออกแบบและทดสอบการเล่น Almondo (AI) เขียนโค้ดและแก้ไขข้อผิดพลาด</span></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -434,17 +421,17 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Order Up! · 6 ส.ค. – 12 พ.ย. · 561 commit</div>
-    <h2>7 ช่วงของงาน ใน 2 รอบ</h2>
+    <h2>ขั้นตอนการพัฒนา 7 ช่วง ใน 2 รอบ</h2>
     <div class="phases dense">
       <div class="round">รอบแรก · Unity · 132 commit</div>
-      <div class="phase"><i class="c-build"></i><h3>ต้นแบบ Unity<small>6–25 ส.ค. · 51 commit</small></h3><p>ให้หลายคนยืนในครัวเดียวกันในห้องจริงผ่าน LAN มีระบบตวง เท ผัด และไฟบนกระทะ</p></div>
-      <div class="phase"><i class="c-build"></i><h3>ครัวเต็มรูปแบบ<small>11 ก.ย. – 14 ต.ค. · 81 commit</small></h3><p>หน้าที่ 5 คน Order และคะแนน ความร้อนแยกตามจุดบนกระทะ และเสียงทุกเหตุการณ์ในครัว</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ต้นแบบ Unity<small>6–25 ส.ค. · 51 commit</small></h3><p>ผู้เล่นหลายคนอยู่ในครัวเดียวกันภายในห้องจริงผ่าน LAN พร้อมระบบตวง เท ผัด และไฟบนกระทะ</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ครัวเต็มรูปแบบ<small>11 ก.ย. – 14 ต.ค. · 81 commit</small></h3><p>หน้าที่ของผู้เล่น 5 ตำแหน่ง ระบบคำสั่งอาหารและคะแนน ความร้อนแยกตามจุดบนกระทะ และเสียงประกอบทุกเหตุการณ์ในครัว</p></div>
       <div class="round">รอบสอง · เว็บ · 429 commit</div>
-      <div class="phase"><i class="c-build"></i><h3>ย้ายมาเว็บ<small>15–21 ต.ค. · 146 commit</small></h3><p><b>ทั้งเกมใน 7 วัน</b> ด้วย three.js กับ WebXR เปิดจากลิงก์ใน Fortal OS ไม่ต้องติดตั้ง</p></div>
-      <div class="phase"><i class="c-test"></i><h3>สถานที่จริง<small>26–31 ต.ค. · 99 commit</small></h3><p>วางครัวให้ตรงห้องจริง ใช้ผังสนาม Happitat 15 × 8 เมตร และเล่นได้เฉพาะแว่นของสนาม</p></div>
-      <div class="phase"><i class="c-art"></i><h3>หน้าตาใหม่<small>2–6 พ.ย. · 124 commit</small></h3><p>สร้างครัวใหม่ทั้งหมดด้วยโค้ด แบบ low-poly ที่ดูปั้นด้วยมือ และใช้โหมด casual เป็นค่าเริ่มต้น</p></div>
-      <div class="phase"><i class="c-art"></i><h3>เพื่อนร่วมครัว<small>7–11 พ.ย. · 47 commit</small></h3><p>ผู้เล่นคนอื่นเป็นเชฟ 3D ที่ขยับตามคนใส่แว่นจริง และมีบอทเล่นทดสอบครบรอบบนแว่นเอง</p></div>
-      <div class="phase"><i class="c-test"></i><h3>เก็บงาน<small>12 พ.ย. · 13 commit</small></h3><p>เล่นจริงในแว่น บอกปัญหา แล้วแก้และขึ้นเว็บได้ 3 ครั้งในวันเดียว</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ย้ายมาเว็บ<small>15–21 ต.ค. · 146 commit</small></h3><p><b>ย้ายทั้งเกมภายใน 7 วัน</b> ด้วย three.js และ WebXR เปิดใช้งานจากลิงก์ใน Fortal OS โดยไม่ต้องติดตั้ง</p></div>
+      <div class="phase"><i class="c-test"></i><h3>สถานที่จริง<small>26–31 ต.ค. · 99 commit</small></h3><p>จัดวางครัวให้ตรงกับห้องจริง ใช้ผังสถานที่ Happitat ขนาด 15 × 8 เมตร และจำกัดให้เล่นได้เฉพาะแว่นของสถานที่</p></div>
+      <div class="phase"><i class="c-art"></i><h3>ปรับรูปลักษณ์ใหม่<small>2–6 พ.ย. · 124 commit</small></h3><p>สร้างครัวใหม่ทั้งหมดด้วยโค้ดในรูปแบบ low-poly ที่ดูเหมือนงานปั้นมือ และกำหนดโหมด casual เป็นค่าเริ่มต้น</p></div>
+      <div class="phase"><i class="c-art"></i><h3>ผู้เล่นร่วมครัว<small>7–11 พ.ย. · 47 commit</small></h3><p>แสดงผู้เล่นคนอื่นเป็นเชฟ 3 มิติที่เคลื่อนไหวตามผู้สวมแว่นจริง และมีบอททดสอบการเล่นครบรอบบนแว่นโดยอัตโนมัติ</p></div>
+      <div class="phase"><i class="c-test"></i><h3>ปรับปรุงขั้นสุดท้าย<small>12 พ.ย. · 13 commit</small></h3><p>ทดสอบการเล่นจริงในแว่น รายงานปัญหา แก้ไข และเผยแพร่ขึ้นเว็บ 3 ครั้งภายในวันเดียว</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -454,20 +441,20 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Order Up! · 15 ต.ค. – 12 พ.ย.</div>
-    <h2>ย้ายมาเว็บใน 7 วัน<br><em>แล้วใช้อีก 3 สัปดาห์ทำให้สนุกในสนามจริง</em></h2>
+    <h2>ย้ายมาเป็นเว็บภายใน 7 วัน<br><em>และใช้อีก 3 สัปดาห์ปรับให้เหมาะกับสถานที่จริง</em></h2>
     <div class="cards" style="grid-template-columns:1fr 1fr">
-      <div class="card"><div class="tag">7 วันที่ย้ายมาเว็บ</div><div class="big">146 commit</div>
+      <div class="card"><div class="tag">ช่วงย้ายมาเป็นเว็บ 7 วัน</div><div class="big">146 commit</div>
         <ul>
-          <li>วันแรกแปลงกติกาเกมจาก C# เป็น JavaScript 89 โมดูล พร้อมเทสต์ 1,246 ข้อที่ให้ผลตรงกับของเดิม</li>
-          <li>ห้องเกมรันบน Cloudflare และเป็นตัวตัดสินผล ทุกแว่นจึงเห็นผลเหมือนกัน</li>
-          <li>ของตกและกลิ้งด้วยฟิสิกส์ Rapier มีกล้องคนดูและหน้าควบคุมของ Staff</li>
+          <li>วันแรกแปลงกติกาเกมจาก C# เป็น JavaScript 89 โมดูล พร้อมชุดทดสอบ 1,246 รายการที่ให้ผลตรงกับเวอร์ชันเดิม</li>
+          <li>ห้องเกมทำงานบน Cloudflare และเป็นผู้ตัดสินผล ทุกแว่นจึงแสดงผลตรงกัน</li>
+          <li>ใช้ Rapier คำนวณฟิสิกส์ของวัตถุ พร้อมกล้องสำหรับผู้ชมและหน้าควบคุมสำหรับเจ้าหน้าที่</li>
         </ul>
       </div>
-      <div class="card"><div class="tag">3 สัปดาห์ในสนามจริง</div><div class="big">283 commit</div>
+      <div class="card"><div class="tag">ช่วงปรับในสถานที่จริง 3 สัปดาห์</div><div class="big">283 commit</div>
         <ul>
-          <li>วางครัวให้ตรงห้องจริง แว่นจำห้องได้ และเล่นได้เฉพาะแว่นของสนามผ่าน Fortal OS</li>
-          <li>ครัว low-poly ที่ดูปั้นด้วยมือ เพิ่มรายละเอียดโดยโพลิกอนเพิ่มแค่ 12%</li>
-          <li>เชฟ 3D ของเพื่อน ขาปรับตามส่วนสูงของคนใส่แว่น และปากขยับตามเสียงพูด</li>
+          <li>จัดวางครัวให้ตรงกับห้องจริง แว่นจดจำห้องได้ และจำกัดให้เล่นได้เฉพาะแว่นของสถานที่ผ่าน Fortal OS</li>
+          <li>ครัวแบบ low-poly ที่ดูเหมือนงานปั้นมือ เพิ่มรายละเอียดโดยจำนวนโพลิกอนเพิ่มขึ้นเพียงร้อยละ 12</li>
+          <li>ตัวละครเชฟ 3 มิติของผู้เล่นอื่น ปรับความยาวขาตามส่วนสูงของผู้สวมแว่น และขยับปากตามเสียงพูด</li>
         </ul>
       </div>
     </div>
@@ -478,17 +465,17 @@
 <section class="slide" aria-label="Order Up! วงจรที่ทำซ้ำทุกวัน" data-foot="เกมที่ 3 · Order Up!">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">Order Up! · วิธีทำงาน</div>
-    <h2>วงจรที่ทำซ้ำทุกวัน</h2>
+    <div class="kicker">Order Up! · กระบวนการทำงาน</div>
+    <h2>กระบวนการที่ทำซ้ำทุกวัน</h2>
     <div class="cards" style="grid-template-columns:repeat(4,1fr)">
-      <div class="card"><div class="stepnum">1</div><h3>เล่นในห้องจริง</h3><p>Mond ใส่แว่นเล่นเองทุกวัน</p></div>
-      <div class="card"><div class="stepnum">2</div><h3>เล่าเป็นคำธรรมดา</h3><p>เช่น “คืนของยากมาก” หรือ “มือปัดของกระเด็น”</p></div>
-      <div class="card"><div class="stepnum">3</div><h3>AI หาสาเหตุและแก้</h3><p>หาต้นเหตุในโค้ด แก้ แล้วเพิ่มเทสต์กันพังซ้ำ</p></div>
-      <div class="card"><div class="stepnum">4</div><h3>ขึ้นเว็บเมื่อ Mond สั่ง</h3><p>เทสต์ทั้งหมดต้องผ่านก่อนทุกครั้ง</p></div>
+      <div class="card"><div class="stepnum">1</div><h3>ทดสอบในห้องจริง</h3><p>Mond สวมแว่นทดสอบการเล่นด้วยตนเองทุกวัน</p></div>
+      <div class="card"><div class="stepnum">2</div><h3>อธิบายปัญหาด้วยภาษาทั่วไป</h3><p>เช่น “คืนของยากมาก” หรือ “มือปัดของกระเด็น”</p></div>
+      <div class="card"><div class="stepnum">3</div><h3>AI วิเคราะห์และแก้ไข</h3><p>ค้นหาสาเหตุในโค้ด แก้ไข และเพิ่มชุดทดสอบเพื่อป้องกันปัญหาซ้ำ</p></div>
+      <div class="card"><div class="stepnum">4</div><h3>เผยแพร่เมื่อได้รับอนุมัติ</h3><p>ชุดทดสอบทั้งหมดต้องผ่านก่อนเผยแพร่ทุกครั้ง</p></div>
     </div>
     <div class="callouts">
-      <div class="callout"><b>แบ่งหน้าที่</b><p>Mond ตัดสินว่าเกมควรเป็นแบบไหนและอะไรสนุก ส่วน Almondo เขียนโค้ด เขียนเทสต์ ลองบนแว่น และจำว่าเคยลองอะไรไปแล้ว</p></div>
-      <div class="callout"><b>ตัวอย่างวันที่ 12 พ.ย.</b><p>ถาดเรืองแสงเมื่อแตะ เสียงลังมาจากทิศของตู้เย็น และมือปัดเบาลงจนของไม่กระเด็น ทั้งหมดขึ้นเว็บในวันเดียว</p></div>
+      <div class="callout"><b>การแบ่งหน้าที่</b><p>Mond กำหนดทิศทางของเกมและตัดสินว่าสิ่งใดสนุก ส่วน Almondo เขียนโค้ด เขียนชุดทดสอบ ทดลองบนแว่น และบันทึกสิ่งที่เคยทดลองแล้ว</p></div>
+      <div class="callout"><b>ตัวอย่างวันที่ 12 พ.ย.</b><p>ถาดเรืองแสงเมื่อสัมผัส เสียงลังดังมาจากทิศทางของตู้เย็น และลดแรงปัดมือจนสิ่งของไม่กระเด็น ทั้งหมดเผยแพร่ภายในวันเดียว</p></div>
     </div>
     <div class="quote">AI ทำให้เขียนเกมเร็วขึ้น แต่เกมดีขึ้นเพราะมีคนเล่นในแว่นทุกวัน<small>จากสรุปไทม์ไลน์ Order Up!</small></div>
   </div>
@@ -502,13 +489,13 @@
   <div class="body">
     <div class="ghost">04</div>
     <div class="kicker">เกมที่ 4 · Constellation Maker · พื้น LED คู่กับเว็บ</div>
-    <h2>เหยียบดาวบนพื้น LED<br><em>ต่อเป็นกลุ่มดาวด้วยกัน</em></h2>
-    <div class="lead">คนบนพื้นเหยียบดาวให้ครบ คนถือ iPad เห็นแผนที่คำตอบแล้วบอกทางเพื่อน ส่วนจอผนังเล่าเรื่องให้คนที่รอคิวดู ทั้งสามจอเล่นพร้อมกันในรอบเดียว</div>
+    <h2>เหยียบดาวบนพื้น LED<br><em>เพื่อร่วมกันต่อกลุ่มดาว</em></h2>
+    <div class="lead">ผู้เล่นบนพื้นเหยียบดาวให้ครบ ผู้ถือ iPad เห็นแผนที่คำตอบและทำหน้าที่นำทาง ส่วนจอผนังแสดงเรื่องราวให้ผู้ที่รอคิวรับชม ทั้งสามจอทำงานพร้อมกันในรอบเดียว</div>
     <div class="stats" style="grid-template-columns:repeat(4,1fr)">
       <div class="stat"><b>3 จอ</b><span>พื้น LED จอผนัง และ iPad ของผู้นำทาง</span></div>
       <div class="stat"><b>12 × 5</b><span>ช่องบนพื้น ตรงกับรอยต่อแผ่น LED จริง</span></div>
-      <div class="stat"><b>5 รอบ</b><span>ไล่ความยาก มีดาวพลังงาน ดาวหนี และซูเปอร์โนวา</span></div>
-      <div class="stat"><b>68 วินาที</b><span>วิดีโอ Intro พากย์ไทยและอังกฤษ</span></div>
+      <div class="stat"><b>5 รอบ</b><span>ระดับความยากเพิ่มขึ้นตามลำดับ มีดาวพลังงาน ดาวหนี และซูเปอร์โนวา</span></div>
+      <div class="stat"><b>68 วินาที</b><span>วิดีโอแนะนำ พากย์ภาษาไทยและภาษาอังกฤษ</span></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -518,13 +505,13 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Constellation Maker · 6 ส.ค. – 14 ต.ค. · 133 commit ใน 3 repo</div>
-    <h2>5 ช่วงของงาน</h2>
+    <h2>ขั้นตอนการพัฒนา 5 ช่วง</h2>
     <div class="phases">
-      <div class="phase"><i class="c-build"></i><h3>ต้นแบบเว็บ พื้นกับผนัง<small>6–11 ส.ค. · 19 commit</small></h3><p><b>Codex ทำต้นแบบสองจอเสร็จในวันแรก</b> ต่อด้วยข้อมูลกลุ่มดาวจริง โหมดง่าย และหน้าสาธิต</p></div>
-      <div class="phase"><i class="c-build"></i><h3>ลง Unity บนพื้นจริง<small>13 ส.ค. – 9 ก.ย. · 18 commit</small></h3><p>ตำแหน่งบนพื้น โซน Ready คะแนน ชุดราศี และกราฟิก</p></div>
-      <div class="phase"><i class="c-build"></i><h3>iPad ผู้นำทางและโหมดออนไลน์<small>21 ก.ย. – 1 ต.ค. · 49 commit</small></h3><p>เว็บ iPad เห็นแผนที่คำตอบ จับคู่กับเกมด้วยรหัส 4 หลัก และเว็บต้นแบบเพิ่มโหมดเรียนรู้กับเหตุการณ์สุ่ม</p></div>
-      <div class="phase"><i class="c-art"></i><h3>ด่าน ภาพ และเสียง<small>5–8 ต.ค. · 35 commit</small></h3><p>ด่านไล่ระดับ ดาวหนี ซูเปอร์โนวา วิดีโอ Intro เพลง และเสียงพากย์</p></div>
-      <div class="phase"><i class="c-test"></i><h3>แก้หลังผู้ลงทุนลองเล่น<small>13–14 ต.ค. · 10 commit</small></h3><p>จอพื้นบอกเป้าหมายและเล่าเรื่อง เส้นสีทองบนพื้น รอบสอนเล่น และภาษาอังกฤษ</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ต้นแบบเว็บ พื้นกับผนัง<small>6–11 ส.ค. · 19 commit</small></h3><p><b>Codex พัฒนาต้นแบบสองจอเสร็จในวันแรก</b> ตามด้วยข้อมูลกลุ่มดาวจริง โหมดง่าย และหน้าสาธิต</p></div>
+      <div class="phase"><i class="c-build"></i><h3>พัฒนาด้วย Unity บนพื้นจริง<small>13 ส.ค. – 9 ก.ย. · 18 commit</small></h3><p>ตำแหน่งบนพื้น โซนเตรียมพร้อม ระบบคะแนน ชุดกลุ่มดาวจักรราศี และกราฟิก</p></div>
+      <div class="phase"><i class="c-build"></i><h3>iPad ผู้นำทางและโหมดออนไลน์<small>21 ก.ย. – 1 ต.ค. · 49 commit</small></h3><p>เว็บบน iPad แสดงแผนที่คำตอบ เชื่อมกับเกมด้วยรหัส 4 หลัก และเว็บต้นแบบเพิ่มโหมดเรียนรู้กับเหตุการณ์สุ่ม</p></div>
+      <div class="phase"><i class="c-art"></i><h3>ด่าน ภาพ และเสียง<small>5–8 ต.ค. · 35 commit</small></h3><p>ด่านที่ยากขึ้นตามลำดับ ดาวหนี ซูเปอร์โนวา วิดีโอแนะนำ เพลง และเสียงพากย์</p></div>
+      <div class="phase"><i class="c-test"></i><h3>ปรับปรุงหลังผู้ลงทุนทดลองเล่น<small>13–14 ต.ค. · 10 commit</small></h3><p>จอพื้นแสดงเป้าหมายและเรื่องราว เส้นสีทองบนพื้น รอบแนะนำการเล่น และภาษาอังกฤษ</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -533,17 +520,17 @@
 <section class="slide" aria-label="Constellation Maker เวลาหมดไปกับอะไร" data-foot="เกมที่ 4 · Constellation Maker">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">Constellation Maker · หลังเปิดเล่นได้</div>
-    <h2>เวลาที่เหลือหมดไปกับอะไร</h2>
+    <div class="kicker">Constellation Maker · หลังได้ต้นแบบที่เล่นได้</div>
+    <h2>งานที่ใช้เวลาหลังได้ต้นแบบ</h2>
     <div class="cards" style="grid-template-columns:1fr 1fr">
-      <div class="card"><h3>สามส่วนต้องคุยกันได้</h3><p>เกม Unity บนพื้น เว็บ iPad และเว็บต้นแบบ ทำไปพร้อมกัน ทุกส่วนใช้ข้อตกลงการรับส่งข้อมูลชุดเดียวกัน และต้องเล่นได้ทั้งผ่าน LAN และออนไลน์</p></div>
-      <div class="card"><h3>พื้นจริงไม่ตรงกับค่าในโค้ด</h3><p>ต้องวัดจากค่าเซ็นเซอร์ในฉากจนได้พื้น 25 × 5 แผ่น แล้วจัดช่องบนพื้นเป็น 12 × 5 ให้ตรงรอยต่อแผ่นจริง</p></div>
-      <div class="card"><h3>ผู้ลงทุนเล่นแล้วงง</h3><p>13 ต.ค. เล่นได้ 1–3 รอบก็เบื่อ คนบนพื้นดูแต่จอพื้นและไม่รู้ว่ากำลังต่อรูปอะไร ทีมแก้เสร็จภายใน 2 วัน</p></div>
-      <div class="card"><h3>เสียงและวิดีโอ</h3><p>Intro 68 วินาที เพลงจาก Suno เสียงเอฟเฟกต์จาก ElevenLabs และเสียงพากย์ 12 ประโยคจาก Voice Studio</p></div>
+      <div class="card"><h3>สามระบบต้องสื่อสารกันได้</h3><p>เกม Unity บนพื้น เว็บบน iPad และเว็บต้นแบบ พัฒนาไปพร้อมกัน ทุกระบบใช้ข้อตกลงการรับส่งข้อมูลชุดเดียวกัน และต้องใช้งานได้ทั้งผ่าน LAN และออนไลน์</p></div>
+      <div class="card"><h3>พื้นจริงไม่ตรงกับค่าในโค้ด</h3><p>ต้องวัดจากค่าเซ็นเซอร์ในฉากจนได้ขนาดพื้น 25 × 5 แผ่น แล้วจัดช่องบนพื้นเป็น 12 × 5 ให้ตรงกับรอยต่อแผ่นจริง</p></div>
+      <div class="card"><h3>ผลการทดลองเล่นของผู้ลงทุน</h3><p>วันที่ 13 ต.ค. ผู้ลงทุนเล่นได้ 1–3 รอบก็เริ่มเบื่อ ผู้เล่นบนพื้นมองเฉพาะจอพื้นและไม่ทราบว่ากำลังต่อกลุ่มดาวใด ทีมแก้ไขแล้วเสร็จภายใน 2 วัน</p></div>
+      <div class="card"><h3>เสียงและวิดีโอ</h3><p>วิดีโอแนะนำ 68 วินาที เพลงจาก Suno เสียงประกอบจาก ElevenLabs และเสียงพากย์ 12 ประโยคจาก Voice Studio</p></div>
     </div>
     <div class="callouts">
-      <div class="callout"><b>AI ช่วยตรงไหน</b><p>Codex ทำต้นแบบเว็บในวันแรก Claude เขียนเว็บ iPad 30 จาก 36 commit และงานฝั่ง Unity อีก 28 commit</p></div>
-      <div class="callout warn"><b>ยังค้าง</b><p>ไฟล์ Intro สำหรับจอผนังเต็มความกว้าง 12,288 พิกเซล ยังต้องตกลงรูปแบบไฟล์กับทีม Unity</p></div>
+      <div class="callout"><b>บทบาทของ AI</b><p>Codex พัฒนาต้นแบบเว็บในวันแรก Claude เขียนเว็บบน iPad 30 จาก 36 commit และงานฝั่ง Unity อีก 28 commit</p></div>
+      <div class="callout warn"><b>งานคงค้าง</b><p>ไฟล์วิดีโอแนะนำสำหรับจอผนังเต็มความกว้าง 12,288 พิกเซล ยังต้องตกลงรูปแบบไฟล์กับทีม Unity</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -555,12 +542,12 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="ghost">05</div>
-    <div class="kicker">เกมที่ 5 · RobloxFloor · พื้น LED กับกำแพง LED</div>
+    <div class="kicker">เกมที่ 5 · RobloxFloor · พื้น LED และผนัง LED</div>
     <h2>ทางเดินเรืองแสง<br><em>ที่ตอบสนองทุกก้าว</em></h2>
-    <div class="lead">งานนิทรรศการ Roblox เป็นทางเดินพื้น LED ยาว 19 เมตร มีกำแพง LED สองฝั่ง และ lidar 3 ตัวจับตำแหน่งเท้า คนที่เดินผ่านจะเหยียบกล่องให้แตก กดคีย์บอร์ดยักษ์ หรือวิ่งเข้าเส้นชัย สลับได้ 12 ธีม</div>
+    <div class="lead">งานนิทรรศการ Roblox ในรูปแบบทางเดินพื้น LED ยาว 19 เมตร พร้อมผนัง LED สองฝั่ง และ lidar 3 ตัวสำหรับตรวจจับตำแหน่งเท้า ผู้ที่เดินผ่านสามารถเหยียบกล่องให้แตก กดคีย์บอร์ดขนาดใหญ่ หรือเดินเข้าเส้นชัย โดยเลือกได้ 12 ธีม</div>
     <div class="stats" style="grid-template-columns:repeat(4,1fr)">
-      <div class="stat"><b>19 × 5 ม.</b><span>ทางเดินพื้น LED ในสนามจริง</span></div>
-      <div class="stat"><b>3</b><span>lidar จับตำแหน่งเท้าคนเดิน</span></div>
+      <div class="stat"><b>19 × 5 ม.</b><span>ทางเดินพื้น LED ในสถานที่จริง</span></div>
+      <div class="stat"><b>3</b><span>lidar สำหรับตรวจจับตำแหน่งเท้า</span></div>
       <div class="stat"><b>12</b><span>ธีมให้เลือก ตั้งแต่กล่องสุ่มถึงพื้นลาวา</span></div>
       <div class="stat"><b>8 วัน</b><span>จาก commit แรกถึงล่าสุด รวม 13 commit</span></div>
     </div>
@@ -572,37 +559,66 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">RobloxFloor · 23–30 ต.ค. · 13 commit</div>
-    <h2>8 วันของงาน</h2>
+    <h2>ขั้นตอนการพัฒนาใน 8 วัน</h2>
     <div class="phases">
-      <div class="phase"><i class="c-build"></i><h3>ระบบพื้นและกำแพง<small>23 ต.ค. · 1 commit</small></h3><p>พื้น 19 × 5 กำแพง LED สองฝั่ง รับตำแหน่งเท้าจาก lidar และหน้าตั้งค่าสถานที่ <b>ทั้งหมดมาใน commit แรก</b></p></div>
-      <div class="phase"><i class="c-art"></i><h3>ภาพและการติดตั้ง<small>24–27 ต.ค. · 4 commit</small></h3><p>ปรับภาพบนพื้น เขียนคู่มือ และตั้งค่าเครื่องใหม่ที่สนาม</p></div>
-      <div class="phase"><i class="c-art"></i><h3>วิดีโอกำแพงและเสียง<small>29–30 ต.ค. · 8 commit</small></h3><p>วิดีโอแยกตามฝั่งกำแพง หน้า Thank You เสียงคีย์บอร์ด และวิดีโอที่พอดีกำแพง 4,500 × 900 พิกเซล</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ระบบพื้นและผนัง<small>23 ต.ค. · 1 commit</small></h3><p>พื้นขนาด 19 × 5 เมตร ผนัง LED สองฝั่ง การรับตำแหน่งเท้าจาก lidar และหน้าตั้งค่าสถานที่ <b>ทั้งหมดอยู่ใน commit แรก</b></p></div>
+      <div class="phase"><i class="c-art"></i><h3>ภาพและการติดตั้ง<small>24–27 ต.ค. · 4 commit</small></h3><p>ปรับภาพบนพื้น จัดทำคู่มือ และตั้งค่าเครื่องใหม่ ณ สถานที่จริง</p></div>
+      <div class="phase"><i class="c-art"></i><h3>วิดีโอผนังและเสียง<small>29–30 ต.ค. · 8 commit</small></h3><p>วิดีโอแยกตามฝั่งผนัง หน้าขอบคุณ เสียงคีย์บอร์ด และวิดีโอที่พอดีกับผนังขนาด 4,500 × 900 พิกเซล</p></div>
     </div>
     <div class="callouts">
-      <div class="callout"><b>AI ช่วยตรงไหน</b><p>Claude ทำเสียงคีย์บอร์ดด้วย ElevenLabs และตัดวิดีโอกำแพงให้พอดีความละเอียดจริงของจอ</p></div>
-      <div class="callout warn"><b>ลองแล้วไม่ผ่าน</b><p>สังเคราะห์เสียงคีย์บอร์ดเองด้วยโค้ด 4 รอบแต่เสียงไม่ผ่าน จึงย้ายไปใช้ ElevenLabs</p></div>
+      <div class="callout"><b>บทบาทของ AI</b><p>Claude สร้างเสียงคีย์บอร์ดด้วย ElevenLabs และตัดวิดีโอผนังให้พอดีกับความละเอียดจริงของจอ</p></div>
+      <div class="callout warn"><b>แนวทางที่ทดลองแล้วไม่ได้ผล</b><p>สังเคราะห์เสียงคีย์บอร์ดด้วยโค้ด 4 รอบแต่คุณภาพเสียงไม่ผ่าน จึงเปลี่ยนไปใช้ ElevenLabs</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- ============ 06 GAMES AND TOOLS ============ -->
+<!-- ============ 06 LOY KRATHONG ============ -->
+
+<section class="slide" aria-label="ลอยกระทง" data-foot="เกมที่ 6 · ลอยกระทง">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="ghost">06</div>
+    <div class="kicker">เกมที่ 6 · ลอยกระทง (Kratong) · 9 พ.ย. 2569 – ปัจจุบัน · อยู่ระหว่างพัฒนา</div>
+    <h2>เหยียบพื้นแล้วกระทงผุดขึ้นจากน้ำ<br><em>ลอยไปถึงผนังแล้วกลายเป็นโคมลอย</em></h2>
+    <div style="display:grid;grid-template-columns:380px 1fr;gap:24px;margin-top:34px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card"><div class="big">23+</div><p>เวอร์ชันของภาพที่ปรับมาแล้ว</p></div>
+        <div class="card"><div class="big">4 วัน</div><p>ทำงานร่วมกับ AI 9 รอบ</p></div>
+        <div class="card"><div class="big">12,288 px</div><p>ความกว้างของผนังจอโค้ง</p></div>
+      </div>
+      <div class="card"><div class="tag">สิ่งที่พัฒนาแล้ว</div>
+        <ul>
+          <li>พื้น: แม่น้ำยามค่ำคืน แสงสะท้อนใต้น้ำ สายธารแสง 3 สี ปลา และวงแหวนสีทองขณะปล่อยกระทง</li>
+          <li>ผนัง: เมืองริมน้ำ เจดีย์ทอง พระจันทร์เหนือปราสาท โคมลอย และพลุ</li>
+          <li>โมเดลฉากบนผนังปั้นใน Blender ผ่าน Blender MCP</li>
+          <li>หน้าเว็บบนมือถือสำหรับเลือกแบบกระทงและสติกเกอร์ แล้วส่งเข้าเกม</li>
+          <li>เสียงประกอบสร้างด้วยสคริปต์</li>
+          <li>ล่าสุดรองรับจอโค้งตามข้อกำหนดของ DeepSpace ผนัง 12,288 × 2,160 และพื้น MoonCell 3,200 × 1,536</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<!-- ============ 07 GAMES AND TOOLS ============ -->
 
 <section class="slide" aria-label="เกมที่ทำร่วมกับ Claude" data-foot="เกมและเครื่องมือ">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="ghost">06</div>
-    <div class="kicker">เกมและเครื่องมือ · มิ.ย. – พ.ย. 2026</div>
-    <h2>8 เกมที่ทำร่วมกับ Claude</h2>
+    <div class="ghost">07</div>
+    <div class="kicker">เกมและเครื่องมือ · มิ.ย. – พ.ย. 2569</div>
+    <h2>เกมที่พัฒนาร่วมกับ Claude 8 เกม</h2>
     <div class="cards" style="grid-template-columns:repeat(4,1fr)">
-      <div class="card"><div class="tag">Web · มิ.ย.</div><h3>67Game</h3><p>เกมนับมือ 6-7 สำหรับบูธงาน มีกระดานคะแนนและจอ TV</p></div>
-      <div class="card"><div class="tag">Web · มิ.ย.</div><h3>Toku Panel</h3><p>เกมเปิดภาพทายอนิเมะ 3 คน พร้อมหลังบ้านจัดคำถาม</p></div>
-      <div class="card"><div class="tag">Web สองจอ · ส.ค.</div><h3>AI Guardian Defense</h3><p>ทีมตอบคำถามสู้บอส มีจอพื้นกับจอบอสแยกกัน</p></div>
-      <div class="card"><div class="tag">Unity พื้น LED · ส.ค. – ต.ค.</div><h3>Constellation Maker</h3><p>เดินเหยียบดาวต่อเป็นกลุ่มดาว มี iPad นำทางและวิดีโอ Intro</p></div>
-      <div class="card"><div class="tag">Unity พื้น LED · ส.ค. – ต.ค.</div><h3>Crimson Raid</h3><p>บอสไฟต์ 4 คน ตอบคำถาม AI แล้ววิ่งหลบบนพื้น</p></div>
-      <div class="card"><div class="tag">Unity · Quest MR · ต.ค.</div><h3>While We West</h3><p>เริ่มเป็นคาวบอย FPS แล้วเปลี่ยนเป็นปล้นรถไฟแบบ MR หลายคน</p></div>
-      <div class="card"><div class="tag">WebXR บน Quest 3 · ต.ค. – พ.ย.</div><h3>While We West XR</h3><p>เวอร์ชันเว็บ ต่อมาเปลี่ยนเป็นเกมเอาตัวรอดกลางทะเลทราย 119 commit</p></div>
-      <div class="card"><div class="tag">Unity พื้น LED · ต.ค.</div><h3>RobloxFloor</h3><p>ทางเดินพื้น LED 12 ธีม รวมคีย์บอร์ดยักษ์ที่มีเสียง ASMR</p></div>
+      <div class="card"><div class="tag">Web · มิ.ย.</div><h3>67Game</h3><p>เกมนับมือ 6-7 สำหรับบูธในงานกิจกรรม พร้อมกระดานคะแนนและจอแสดงผล</p></div>
+      <div class="card"><div class="tag">Web · มิ.ย.</div><h3>Toku Panel</h3><p>เกมเปิดภาพทายตัวละครอนิเมะสำหรับผู้เล่น 3 คน พร้อมระบบหลังบ้านสำหรับจัดการคำถาม</p></div>
+      <div class="card"><div class="tag">Web สองจอ · ส.ค.</div><h3>AI Guardian Defense</h3><p>เกมตอบคำถามเป็นทีมเพื่อต่อสู้กับบอส แยกจอพื้นและจอบอส</p></div>
+      <div class="card"><div class="tag">Unity พื้น LED · ส.ค. – ต.ค.</div><h3>Constellation Maker</h3><p>เหยียบดาวเพื่อต่อกลุ่มดาว มี iPad นำทางและวิดีโอแนะนำ</p></div>
+      <div class="card"><div class="tag">Unity พื้น LED · ส.ค. – ต.ค.</div><h3>Crimson Raid</h3><p>บอสไฟต์สำหรับผู้เล่น 4 คน ตอบคำถามเรื่อง AI และเคลื่อนที่หลบบนพื้น</p></div>
+      <div class="card"><div class="tag">Unity · Quest MR · ต.ค.</div><h3>While We West</h3><p>เริ่มจากเกมยิงคาวบอยมุมมองบุคคลที่หนึ่ง แล้วปรับเป็นเกมปล้นรถไฟแบบ MR หลายผู้เล่น</p></div>
+      <div class="card"><div class="tag">WebXR บน Quest 3 · ต.ค. – พ.ย.</div><h3>While We West XR</h3><p>เวอร์ชันเว็บ ต่อมาปรับเป็นเกมเอาชีวิตรอดกลางทะเลทราย 119 commit</p></div>
+      <div class="card"><div class="tag">Unity พื้น LED · ต.ค.</div><h3>RobloxFloor</h3><p>ทางเดินพื้น LED 12 ธีม รวมคีย์บอร์ดขนาดใหญ่ที่มีเสียงแบบ ASMR</p></div>
     </div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
@@ -612,29 +628,29 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">เกมและเครื่องมือ</div>
-    <h2>เครื่องมือที่ใช้ <em>แบ่งตามงาน</em></h2>
+    <h2>เครื่องมือที่ใช้ <em>จำแนกตามประเภทงาน</em></h2>
     <div class="tools">
-      <div class="tcol"><h3>โค้ดและ Engine</h3>
-        <div class="tool"><b>Claude Code</b><span>เขียนโค้ด รีวิว เอกสาร และสไลด์</span><em>ทุกเกม</em></div>
-        <div class="tool"><b>Codex</b><span>ทำต้นแบบ งาน Unity และภาพคอนเซปต์</span><em>5 เกม</em></div>
-        <div class="tool"><b>Coplay MCP</b><span>ให้ AI สั่ง Unity Editor ได้ตรง</span><em>Constellation · While We West</em></div>
+      <div class="tcol"><h3>โค้ดและเอนจินเกม</h3>
+        <div class="tool"><b>Claude Code</b><span>เขียนโค้ด ตรวจทานโค้ด จัดทำเอกสารและสไลด์</span><em>ทุกเกม</em></div>
+        <div class="tool"><b>Codex</b><span>พัฒนาต้นแบบ งาน Unity และภาพแนวคิด</span><em>5 เกม</em></div>
+        <div class="tool"><b>Coplay MCP</b><span>ให้ AI ควบคุม Unity Editor ได้โดยตรง</span><em>Constellation · While We West</em></div>
       </div>
-      <div class="tcol"><h3>ภาพ โมเดล วิดีโอ</h3>
+      <div class="tcol"><h3>ภาพ โมเดล และวิดีโอ</h3>
         <div class="tool"><b>LowPoly Studio</b><span>โมเดล low-poly ตัวละคร สัตว์ พร็อพ และผังสนาม</span><em>While We West XR · Order Up!</em></div>
-        <div class="tool"><b>Meshy</b><span>เปลี่ยนรูปถ่ายเป็นหัว 3D ของผู้เล่น</span><em>Crimson Raid</em></div>
-        <div class="tool"><b>Blender · Mixamo</b><span>โมเดลปืน Rig และท่าทางตัวละคร</span><em>While We West ทั้งสองเวอร์ชัน</em></div>
-        <div class="tool"><b>Seedance</b><span>คลิปพื้นหลังของวิดีโอ Intro</span><em>Constellation Maker</em></div>
+        <div class="tool"><b>Meshy</b><span>แปลงรูปถ่ายเป็นศีรษะ 3 มิติของผู้เล่น</span><em>Crimson Raid</em></div>
+        <div class="tool"><b>Blender · Mixamo</b><span>โมเดลอาวุธ โครงกระดูก ท่าทางตัวละคร และฉากบนผนังผ่าน Blender MCP</span><em>While We West ทั้งสองเวอร์ชัน · ลอยกระทง</em></div>
+        <div class="tool"><b>Seedance</b><span>คลิปพื้นหลังของวิดีโอแนะนำ</span><em>Constellation Maker</em></div>
       </div>
       <div class="tcol"><h3>เสียง</h3>
         <div class="tool"><b>Voice Studio</b><span>เสียงพากย์ ผู้บรรยาย และเสียงตัวละคร</span><em>Constellation · Crimson Raid · While We West</em></div>
-        <div class="tool"><b>ElevenLabs</b><span>เสียงเอฟเฟกต์ เสียงพูดย้ายไป Voice Studio เพราะฟังธรรมชาติกว่า</span><em>4 เกม</em></div>
+        <div class="tool"><b>ElevenLabs</b><span>เสียงประกอบ ส่วนเสียงพูดเปลี่ยนไปใช้ Voice Studio เนื่องจากเป็นธรรมชาติกว่า</span><em>4 เกม</em></div>
         <div class="tool"><b>Suno</b><span>เพลงในเกม</span><em>Constellation Maker</em></div>
-        <div class="tool"><b>ffmpeg · Whisper</b><span>ตัดเสียงพากย์ทีละประโยค มิกซ์ และใส่ซับ</span><em>3 เกม</em></div>
+        <div class="tool"><b>ffmpeg · Whisper</b><span>ตัดเสียงพากย์รายประโยค ผสมเสียง และใส่คำบรรยาย</span><em>3 เกม</em></div>
       </div>
       <div class="tcol"><h3>ทดสอบและเผยแพร่</h3>
-        <div class="tool"><b>Playwright</b><span>เปิดเบราว์เซอร์ทดสอบเอง และเรนเดอร์วิดีโอ</span><em>While We West XR · Constellation</em></div>
-        <div class="tool"><b>Vercel</b><span>โฮสต์เว็บเกม หน้าเดโม และเก็บสถานะเกม</span><em>6 เกม</em></div>
-        <div class="tool"><b>GitHub</b><span>เก็บโค้ด เปิด PR และหน้าเว็บ</span><em>ทุกเกม</em></div>
+        <div class="tool"><b>Playwright</b><span>ทดสอบผ่านเบราว์เซอร์อัตโนมัติ และเรนเดอร์วิดีโอ</span><em>While We West XR · Constellation</em></div>
+        <div class="tool"><b>Vercel</b><span>ให้บริการเว็บเกม หน้าสาธิต และจัดเก็บสถานะเกม</span><em>6 เกม</em></div>
+        <div class="tool"><b>GitHub</b><span>จัดเก็บโค้ด ตรวจทานผ่าน Pull Request และเผยแพร่หน้าเว็บ</span><em>ทุกเกม</em></div>
       </div>
     </div>
   </div>
@@ -645,7 +661,7 @@
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">เกมและเครื่องมือ</div>
-    <h2>เครื่องมือไหนใช้กับเกมไหน</h2>
+    <h2>เครื่องมือที่ใช้ในแต่ละเกม</h2>
     <table class="tbl mx">
       <thead><tr><th style="width:20%">เครื่องมือ</th><th>67Game</th><th>Toku</th><th>AI Guardian</th><th>Constellation</th><th>Crimson</th><th>WWW Unity</th><th>WWW XR</th><th>RobloxFloor</th></tr></thead>
       <tbody>
@@ -673,15 +689,15 @@
 <section class="slide" aria-label="สิ่งที่กินเวลาซ้ำกันทุกเกม" data-foot="สรุป">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">เกมใหญ่ 4 เกม</div>
-    <h2>สิ่งที่กินเวลาซ้ำกันทุกเกม</h2>
+    <div class="kicker">เกมขนาดใหญ่ 4 เกม</div>
+    <h2>ปัจจัยที่ใช้เวลาซึ่งพบร่วมกันในทุกเกม</h2>
     <table class="tbl five">
-      <thead><tr><th style="width:16%">เรื่อง</th><th style="width:21%">Crimson Raid</th><th style="width:21%">Catch a Butterfly</th><th style="width:21%">Order Up!</th><th style="width:21%">Constellation Maker</th></tr></thead>
+      <thead><tr><th style="width:16%">ประเด็น</th><th style="width:21%">Crimson Raid</th><th style="width:21%">Catch a Butterfly</th><th style="width:21%">Order Up!</th><th style="width:21%">Constellation Maker</th></tr></thead>
       <tbody>
-        <tr><td class="g">ฮาร์ดแวร์ในสนาม</td><td>พื้น LED กับ 3 จอต้องทำงานพร้อมกัน</td><td>แว่นหลายเครื่องต้องเห็นห้องจริงตรงกัน</td><td>วางครัวให้ตรงห้องจริง และล็อกให้เล่นได้เฉพาะแว่นของสนาม</td><td>ช่องบนพื้นต้องตรงแผ่น LED จริง</td></tr>
-        <tr><td class="g">บั๊กที่เจอตอนเล่นจริง</td><td>เกมไม่เริ่มใน Build และฉากจบค้าง</td><td>เล่นนานแล้วจับผีเสื้อไม่ติด</td><td>คืนของยาก และมือปัดแล้วของกระเด็น</td><td>ดาวคำตอบห่างกันจนเส้นไม่ขึ้น</td></tr>
-        <tr><td class="g">งานภาพที่ทำซ้ำ</td><td>ยกเครื่อง UI 2 รอบ</td><td>ตู้ Terrarium 3 เวอร์ชัน</td><td>สร้างครัวใหม่ทั้งหมดด้วยโค้ด</td><td>ธีม UI ใหม่ให้เข้ากับ Intro</td></tr>
-        <tr><td class="g">ให้ผู้เล่นเข้าใจเอง</td><td>Intro เสียงพากย์ และ Demo สอนเล่น</td><td>ความเร็วผีเสื้อแยกตามชนิด</td><td>โหมด casual เป็นค่าเริ่มต้น</td><td>จอพื้นเล่าเรื่อง และรอบสอนเล่น</td></tr>
+        <tr><td class="g">ฮาร์ดแวร์ในสถานที่จริง</td><td>พื้น LED กับ 3 จอต้องทำงานพร้อมกัน</td><td>แว่นหลายเครื่องต้องระบุตำแหน่งห้องจริงตรงกัน</td><td>จัดวางครัวให้ตรงกับห้องจริง และจำกัดให้เล่นได้เฉพาะแว่นของสถานที่</td><td>ช่องบนพื้นต้องตรงกับแผ่น LED จริง</td></tr>
+        <tr><td class="g">ข้อผิดพลาดที่พบขณะใช้งานจริง</td><td>เกมไม่เริ่มทำงานในไฟล์ Build และฉากจบค้าง</td><td>จับผีเสื้อไม่ได้เมื่อเล่นต่อเนื่องเป็นเวลานาน</td><td>วางสิ่งของคืนได้ยาก และสิ่งของกระเด็นเมื่อปัดมือ</td><td>ดาวคำตอบอยู่ห่างกันจนไม่เกิดเส้นเชื่อม</td></tr>
+        <tr><td class="g">งานภาพที่ต้องปรับหลายรอบ</td><td>ปรับ UI ใหม่ 2 รอบ</td><td>ตู้ Terrarium 3 เวอร์ชัน</td><td>สร้างครัวใหม่ทั้งหมดด้วยโค้ด</td><td>ปรับธีม UI ให้สอดคล้องกับวิดีโอแนะนำ</td></tr>
+        <tr><td class="g">การทำให้ผู้เล่นเข้าใจเกม</td><td>วิดีโอแนะนำ เสียงพากย์ และ Demo สอนการเล่น</td><td>ปรับความเร็วผีเสื้อตามชนิด</td><td>กำหนดโหมด casual เป็นค่าเริ่มต้น</td><td>จอพื้นแสดงเรื่องราว และรอบแนะนำการเล่น</td></tr>
       </tbody>
     </table>
   </div>
@@ -692,14 +708,14 @@
   <div class="glow" style="width:700px;height:700px;background:radial-gradient(circle,rgba(198,168,107,.09) 0%,transparent 70%);left:-160px;bottom:-200px"></div>
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">ถ้าจะประเมินเวลาเกมใหม่</div>
-    <h2>ประเมินจาก<em>เกมที่ทำมาแล้ว</em></h2>
+    <div class="kicker">แนวทางการประเมินระยะเวลาโครงการใหม่</div>
+    <h2>กรอบเวลาอ้างอิง<em>จากเกมที่พัฒนาแล้ว</em></h2>
     <div class="cards" style="grid-template-columns:repeat(3,1fr);margin-top:42px">
-      <div class="card"><div class="tag">ต้นแบบที่เล่นได้</div><div class="big">1 วัน – 3 สัปดาห์</div><p>AI เขียนระบบหลักได้เร็ว ต้นแบบเว็บเสร็จในวันแรก ส่วนเกม MR หลายแว่นเล่นครบลูปได้ในวันที่ 4</p></div>
-      <div class="card"><div class="tag">ภาพ เสียง และระบบรอบสอง</div><div class="big">4–6 สัปดาห์</div><p>งานภาพมักต้องทำมากกว่าหนึ่งรอบ และต้องดูบนจอหรือในแว่นจริงก่อนตัดสิน</p></div>
-      <div class="card"><div class="tag">ทดสอบในสนามจริง</div><div class="big">2–3 สัปดาห์ขึ้นไป</div><p>ต้องมีพื้น LED หรือแว่นหลายเครื่องให้ทดสอบ เพราะบั๊กหลายตัวโผล่เฉพาะตอนเล่นจริงหรือเล่นนาน</p></div>
+      <div class="card"><div class="tag">ต้นแบบที่เล่นได้</div><div class="big">1 วัน – 3 สัปดาห์</div><p>AI ช่วยพัฒนาระบบหลักได้รวดเร็ว ต้นแบบเว็บแล้วเสร็จในวันแรก และเกม MR หลายแว่นเล่นครบวงจรได้ในวันที่ 4</p></div>
+      <div class="card"><div class="tag">ภาพ เสียง และระบบรอบที่สอง</div><div class="big">4–6 สัปดาห์</div><p>งานภาพมักต้องปรับมากกว่าหนึ่งรอบ และต้องตรวจบนจอหรือในแว่นจริงก่อนตัดสินใจ</p></div>
+      <div class="card"><div class="tag">ทดสอบในสถานที่จริง</div><div class="big">2–3 สัปดาห์ขึ้นไป</div><p>ต้องมีพื้น LED หรือแว่นหลายเครื่องสำหรับทดสอบ เนื่องจากข้อผิดพลาดหลายรายการพบเฉพาะเมื่อใช้งานจริงหรือใช้งานต่อเนื่อง</p></div>
     </div>
-    <div class="quote">งานทางเดินพื้น LED อย่าง RobloxFloor จบได้ในราว 1 สัปดาห์ ส่วนเกมใหญ่ ช่วงท้ายจะเร็วขึ้นถ้ามีคนเล่นในสนามจริงทุกวันแล้วให้ AI แก้ตาม แบบที่ Order Up! ทำจนไปถึงวันเปิดขาย</div>
+    <div class="quote">งานทางเดินพื้น LED อย่าง RobloxFloor แล้วเสร็จได้ในราว 1 สัปดาห์ ส่วนเกมขนาดใหญ่ ช่วงท้ายของโครงการจะเร็วขึ้นหากมีผู้ทดสอบในสถานที่จริงทุกวันและให้ AI แก้ไขตามผลทดสอบ ดังที่ Order Up! ใช้จนถึงวันเปิดจำหน่าย</div>
   </div>
   <div class="foot"><span></span><span class="pg"></span></div>
 </section>

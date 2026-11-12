@@ -128,6 +128,9 @@
   .loop .stepnum{font-size:40px;margin-bottom:8px}
   .loop .card h3{font-size:22px;margin-bottom:6px}
   .loop .card p{font-size:18px}
+  .looplabel{font-size:17px;font-weight:600;letter-spacing:.04em;color:var(--gold);margin-top:30px}
+  .loop{margin-top:12px}
+  .loop .card p.ex{margin-top:10px;padding-top:10px;border-top:1px solid var(--w08);color:var(--goldb)}
 
   /* phase rows */
   .phases{margin-top:30px}
@@ -314,11 +317,12 @@
       <div class="stat"><b>146</b><span>commit ในช่วงย้ายมาเป็นเว็บ 7 วัน</span></div>
       <div class="stat"><b>1,943</b><span>ชุดทดสอบที่ต้องผ่านก่อนเผยแพร่ทุกครั้ง</span></div>
     </div>
-    <div class="cards loop" style="grid-template-columns:repeat(4,1fr);margin-top:30px">
-      <div class="card"><div class="stepnum">1</div><h3>ทดสอบในห้องจริง</h3><p>ผู้ออกแบบสวมแว่นทดสอบการเล่นด้วยตนเองทุกวัน</p></div>
-      <div class="card"><div class="stepnum">2</div><h3>อธิบายปัญหา</h3><p>ใช้ภาษาทั่วไป เช่น “คืนของยากมาก”</p></div>
-      <div class="card"><div class="stepnum">3</div><h3>AI วิเคราะห์และแก้ไข</h3><p>ค้นหาสาเหตุ แก้ไข และเพิ่มชุดทดสอบ</p></div>
-      <div class="card"><div class="stepnum">4</div><h3>เผยแพร่เมื่ออนุมัติ</h3><p>ชุดทดสอบทั้งหมดต้องผ่านก่อนทุกครั้ง</p></div>
+    <div class="looplabel">กระบวนการที่ทำซ้ำทุกวัน · ตัวอย่างจริงจากวันที่ 12 พ.ย.</div>
+    <div class="cards loop" style="grid-template-columns:repeat(4,1fr)">
+      <div class="card"><div class="stepnum">1</div><h3>ทดสอบในห้องจริง</h3><p>Mond ผู้ออกแบบเกม สวมแว่นเล่นเกมด้วยตนเองทุกวัน</p><p class="ex">ระหว่างเล่นพบว่าการวางของคืนลงถาดทำได้ยาก</p></div>
+      <div class="card"><div class="stepnum">2</div><h3>แจ้งปัญหาที่พบ</h3><p>บอกอาการด้วยภาษาทั่วไป โดยไม่ต้องระบุว่าโค้ดผิดที่ใด</p><p class="ex">“วางของคืนยากมาก”</p></div>
+      <div class="card"><div class="stepnum">3</div><h3>AI หาสาเหตุและแก้ไข</h3><p>AI ค้นหาต้นเหตุในโค้ด แก้ไข และเพิ่มชุดทดสอบ</p><p class="ex">ถาดเรืองแสงเมื่อมือแตะ ผู้เล่นจึงรู้ว่าวางของคืนได้</p></div>
+      <div class="card"><div class="stepnum">4</div><h3>ตรวจและเผยแพร่</h3><p>ขึ้นเว็บเมื่อชุดทดสอบผ่านทั้งหมดและ Mond อนุมัติ</p><p class="ex">วันที่ 12 พ.ย. วนกระบวนการนี้และเผยแพร่ 3 ครั้ง</p></div>
     </div>
     <div class="quote">AI ทำให้เขียนเกมเร็วขึ้น แต่เกมดีขึ้นเพราะมีคนเล่นในแว่นทุกวัน<small>จากสรุปไทม์ไลน์ Order Up!</small></div>
   </div>

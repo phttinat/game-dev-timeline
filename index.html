@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ทำเกมกับ AI · Fortal Game Production</title>
-<meta name="description" content="เวลาที่ใช้ทำเกมจริงของทีม ดูจากประวัติ Git และเครื่องมือที่ใช้ในแต่ละงาน">
+<title>ทำเกมกับ AI · NDF Game Production</title>
+<meta name="description" content="สรุปจากฝั่ง NDF: 6 เกมที่ทำระหว่าง ส.ค.–พ.ย. 2026 ใช้เวลาเท่าไร เวลาไปอยู่ที่ขั้นไหน และใช้เครื่องมืออะไร">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* Theme: the gold-on-black look of the Oracle Class deck (arthur-morgan/docs/first-light). */
   :root{
     --bg:#090909; --sur:#131313; --sur2:#1E1E1E;
     --gold:#C6A86B; --goldb:#D4B870; --golds:rgba(198,168,107,.16);
-    --blue:#5B9CF6; --coral:#EE8A6A; --green:#34D399;
+    --blue:#5B9CF6; --coral:#EE8A6A;
     --ink:#F0EEF8; --w70:rgba(255,255,255,.70); --w60:rgba(255,255,255,.62); --w40:rgba(255,255,255,.42);
     --w12:rgba(255,255,255,.12); --w08:rgba(255,255,255,.08); --w04:rgba(255,255,255,.04);
     --dur:420ms; --ease:cubic-bezier(.16,1,.3,1);
@@ -35,97 +35,117 @@
   .slide.active{opacity:1;pointer-events:auto;transform:none}
   .slide.exit{opacity:0;transform:translateY(-14px);filter:blur(4px);transition:opacity 260ms ease-in,transform 260ms ease-in,filter 260ms ease-in}
   .bar{height:3px;flex-shrink:0;background:var(--w04)}
-  .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--goldb));box-shadow:0 0 14px rgba(198,168,107,.5);transition:width var(--dur) var(--ease)}
-  .body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:64px 120px;position:relative;overflow:hidden}
-  .foot{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 120px;flex-shrink:0;border-top:1px solid var(--w08);font-size:15px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--w40)}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--goldb));box-shadow:0 0 14px rgba(198,168,107,.5)}
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 120px;position:relative;overflow:hidden}
+  .foot{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 120px;flex-shrink:0;border-top:1px solid var(--w08);font-size:15px;font-weight:500;letter-spacing:.08em;color:var(--w40)}
   .ghost{position:absolute;right:-10px;bottom:-90px;font-size:500px;font-weight:800;color:rgba(198,168,107,.05);line-height:1;letter-spacing:-.06em;user-select:none;pointer-events:none}
   .glow{position:absolute;border-radius:50%;pointer-events:none}
 
-  .kicker{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  .kicker{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:600;letter-spacing:.06em;color:var(--gold);margin-bottom:18px}
   .kicker::before{content:'';width:28px;height:2px;background:var(--gold);opacity:.55;flex-shrink:0}
   h1{font-size:112px;font-weight:800;line-height:1.18;letter-spacing:-.02em;text-wrap:balance}
   h1 em,h2 em{font-style:normal;color:var(--goldb)}
-  h2{font-size:64px;font-weight:700;line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
-  .lead{font-size:28px;font-weight:300;line-height:1.6;color:var(--w70);margin-top:22px;max-width:1300px;text-wrap:pretty}
+  h2{font-size:62px;font-weight:700;line-height:1.16;letter-spacing:-.01em;text-wrap:balance}
+  .lead{font-size:28px;font-weight:300;line-height:1.6;color:var(--w70);margin-top:22px;max-width:1340px;text-wrap:pretty}
   .rule{width:44px;height:3px;background:var(--gold);margin:30px 0;opacity:.65}
-  .num{font-variant-numeric:tabular-nums}
-  .dim{color:var(--w40)}
+  .chips{display:flex;gap:14px;margin-top:44px;flex-wrap:wrap}
+  .chips span{font-size:22px;font-weight:500;padding:10px 24px;border-radius:999px;border:1px solid rgba(198,168,107,.4);background:var(--golds);color:var(--goldb)}
 
   /* big numbers */
-  .stats{display:grid;gap:28px;margin-top:48px}
+  .stats{display:grid;gap:28px;margin-top:44px}
   .stat{border-top:2px solid var(--gold);padding-top:18px}
-  .stat b{display:block;font-size:84px;font-weight:800;line-height:1.05;color:var(--goldb);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .stat b{display:block;font-size:80px;font-weight:800;line-height:1.05;color:var(--goldb);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
   .stat span{display:block;font-size:22px;line-height:1.5;color:var(--w60);margin-top:8px}
-  .stat.hero b{font-size:120px}
+  .stat.hero b{font-size:112px}
 
   /* table */
-  .tbl{width:100%;border-collapse:collapse;margin-top:40px}
-  .tbl th{background:var(--sur);color:var(--w40);padding:16px 20px;text-align:left;font-size:17px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-  .tbl td{padding:20px;border-bottom:1px solid var(--w08);font-size:24px;line-height:1.4;vertical-align:top}
+  .tbl{width:100%;border-collapse:collapse;margin-top:36px}
+  .tbl th{background:var(--sur);color:var(--w40);padding:15px 18px;text-align:left;font-size:17px;font-weight:600;letter-spacing:.04em}
+  .tbl td{padding:17px 18px;border-bottom:1px solid var(--w08);font-size:23px;line-height:1.4;vertical-align:top}
   .tbl tr:last-child td{border-bottom:none}
   .tbl .r{text-align:right;font-variant-numeric:tabular-nums}
   .tbl .g{color:var(--goldb);font-weight:600}
-  .tbl td small{display:block;font-size:18px;color:var(--w40);margin-top:4px}
+  .tbl td small{display:block;font-size:17px;color:var(--w40);margin-top:3px}
+  .tbl tr.star td{background:rgba(198,168,107,.07)}
   .tbl tr.wait td{color:var(--w40)}
+  .tbl.six td{padding:12px 18px;font-size:22px}
+  .tbl.six td small{font-size:16px}
+  .tbl tr.star td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
+  .tbl.five td{font-size:20px;padding:16px 16px}
 
-  /* gantt */
-  .legend{display:flex;gap:36px;margin-top:28px;font-size:20px;color:var(--w60)}
+  /* gantt: 3 Aug – 16 Nov 2026 = 105 days; every left/width below is day / 105 */
+  .legend{display:flex;gap:34px;margin-top:24px;font-size:19px;color:var(--w60)}
   .legend span{display:flex;align-items:center;gap:10px}
   .legend i{width:34px;height:18px;border-radius:5px;display:inline-block}
-  .gantt{margin-top:26px}
-  .grow{display:grid;grid-template-columns:300px 1fr;align-items:center;padding:16px 0;border-bottom:1px solid var(--w08)}
-  .gname{font-size:28px;font-weight:700;line-height:1.2}
-  .gname span{display:block;font-size:18px;font-weight:400;color:var(--w40);margin-top:2px}
-  .track{position:relative;height:56px;background:repeating-linear-gradient(90deg,transparent 0 calc(19.48% - 1px),var(--w08) calc(19.48% - 1px) 19.48%)}
-  .seg{position:absolute;top:6px;bottom:6px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#141414;font-variant-numeric:tabular-nums}
+  .gantt{margin-top:18px}
+  .grow{display:grid;grid-template-columns:290px 1fr;align-items:center;padding:10px 0 28px;border-bottom:1px solid var(--w08)}
+  .grow.wait{padding:10px 0}
+  .grow.wait .gname{color:var(--w40)}
+  .gname{font-size:26px;font-weight:700;line-height:1.2}
+  .gname span{display:block;font-size:17px;font-weight:400;color:var(--w40);margin-top:2px}
+  .track{position:relative;height:46px;background:linear-gradient(90deg,transparent 27.52%,var(--w12) 27.52%,var(--w12) 27.72%,transparent 27.72%,transparent 56.1%,var(--w12) 56.1%,var(--w12) 56.3%,transparent 56.3%,transparent 85.62%,var(--w12) 85.62%,var(--w12) 85.82%,transparent 85.82%)}
+  .seg{position:absolute;top:5px;bottom:5px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#141414;font-variant-numeric:tabular-nums;white-space:nowrap}
   .c-build{background:var(--gold)}
   .c-art{background:var(--blue)}
   .c-test{background:repeating-linear-gradient(135deg,var(--coral) 0 10px,#F3A78D 10px 20px)}
   .mark{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--ink);border-radius:2px}
-  .mark em{position:absolute;top:100%;left:8px;margin-top:2px;font-style:normal;font-size:17px;font-weight:600;color:var(--ink);white-space:nowrap}
-  .grow.wait .track{border:2px dashed var(--w12);border-radius:10px;background:none;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--w40)}
-  .grow.wait .gname{color:var(--w40)}
-  .ticks{display:grid;grid-template-columns:300px 1fr;margin-top:6px}
-  .ticks div{position:relative;height:30px}
-  .ticks span{position:absolute;font-size:17px;color:var(--w40);transform:translateX(-50%);white-space:nowrap}
+  .mark em{position:absolute;top:100%;left:8px;margin-top:2px;font-style:normal;font-size:16px;font-weight:600;color:var(--ink);white-space:nowrap}
+  .mark.end{background:var(--goldb)}
+  .mark.end em{left:auto;right:8px;color:var(--goldb)}
+  .ticks{display:grid;grid-template-columns:290px 1fr;margin-top:8px}
+  .ticks div{position:relative;height:28px}
+  .ticks span{position:absolute;font-size:16px;color:var(--w40);transform:translateX(-50%);white-space:nowrap}
   .ticks span:first-child{transform:none}
   .ticks span:last-child{transform:translateX(-100%)}
 
   /* phase rows */
-  .phases{margin-top:36px}
-  .phase{display:grid;grid-template-columns:16px 420px 1fr;gap:0 32px;align-items:center;padding:20px 0;border-bottom:1px solid var(--w08)}
+  .phases{margin-top:30px}
+  .phase{display:grid;grid-template-columns:14px 400px 1fr;gap:0 30px;align-items:center;padding:18px 0;border-bottom:1px solid var(--w08)}
   .phase:last-child{border-bottom:none}
-  .phase i{width:12px;height:60px;border-radius:6px}
-  .phase h3{font-size:28px;font-weight:700;line-height:1.25}
-  .phase h3 small{display:block;font-size:19px;font-weight:400;color:var(--w40);margin-top:4px;font-variant-numeric:tabular-nums}
-  .phase p{font-size:23px;line-height:1.5;color:var(--w70)}
+  .phase i{width:12px;height:56px;border-radius:6px}
+  .phase h3{font-size:27px;font-weight:700;line-height:1.25}
+  .phase h3 small{display:block;font-size:18px;font-weight:400;color:var(--w40);margin-top:3px;font-variant-numeric:tabular-nums}
+  .phase p{font-size:22px;line-height:1.5;color:var(--w70)}
   .phase p b{color:var(--goldb);font-weight:600}
+  .phases.dense .phase{padding:11px 0}
+  .phases.dense .phase i{height:48px}
+  .phases.dense .phase h3{font-size:25px}
+  .phases.dense .phase p{font-size:21px}
+  .round{font-size:15px;font-weight:600;letter-spacing:.06em;color:var(--gold);padding:14px 0 4px;border-bottom:1px solid var(--w08)}
 
   /* cards */
-  .cards{display:grid;gap:20px;margin-top:36px}
-  .card{padding:28px 28px 30px;background:var(--sur);border:1px solid var(--w08);border-radius:14px;position:relative;overflow:hidden}
+  .cards{display:grid;gap:20px;margin-top:34px}
+  .card{padding:26px 28px 28px;background:var(--sur);border:1px solid var(--w08);border-radius:14px;position:relative;overflow:hidden}
   .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold) 0%,transparent 100%)}
-  .card h3{font-size:26px;font-weight:700;margin-bottom:10px}
+  .card h3{font-size:25px;font-weight:700;margin-bottom:10px}
   .card p{font-size:21px;line-height:1.6;color:var(--w60)}
-  .card .tag{font-size:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .card .tag{font-size:15px;font-weight:600;letter-spacing:.04em;color:var(--gold);margin-bottom:10px}
+  .card ul{list-style:none;margin-top:6px}
+  .card li{font-size:21px;line-height:1.55;color:var(--w70);padding:9px 0 9px 22px;position:relative;border-top:1px solid var(--w08)}
+  .card li:first-child{border-top:none}
+  .card li::before{content:'';position:absolute;left:0;top:21px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  .card .big{font-size:44px;font-weight:800;color:var(--goldb);line-height:1.1;margin-bottom:4px}
+  .stepnum{font-size:54px;font-weight:800;color:var(--gold);opacity:.6;line-height:1;margin-bottom:12px}
   .callouts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
-  .callout{padding:20px 26px;border-radius:12px;border:1px solid rgba(198,168,107,.35);background:var(--golds)}
+  .callout{padding:18px 26px;border-radius:12px;border:1px solid rgba(198,168,107,.35);background:var(--golds)}
   .callout.warn{border-color:rgba(238,138,106,.4);background:rgba(238,138,106,.08)}
-  .callout b{display:block;font-size:17px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--goldb);margin-bottom:6px}
+  .callout b{display:block;font-size:17px;font-weight:600;letter-spacing:.04em;color:var(--goldb);margin-bottom:6px}
   .callout.warn b{color:var(--coral)}
   .callout p{font-size:21px;line-height:1.55;color:var(--w70)}
+  .quote{margin-top:30px;padding-left:28px;border-left:3px solid var(--gold);font-size:30px;font-weight:300;line-height:1.55;color:var(--ink)}
+  .quote small{display:block;font-size:17px;color:var(--w40);margin-top:6px}
 
   /* tools */
-  .tools{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:36px}
+  .tools{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:34px}
   .tcol{background:var(--sur);border:1px solid var(--w08);border-radius:14px;padding:24px 24px 18px}
-  .tcol h3{font-size:17px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .tcol h3{font-size:17px;font-weight:600;letter-spacing:.04em;color:var(--gold);margin-bottom:8px}
   .tool{padding:14px 0;border-top:1px solid var(--w08)}
   .tool:first-of-type{border-top:none}
   .tool b{display:block;font-size:23px;font-weight:700}
   .tool span{display:block;font-size:18px;line-height:1.5;color:var(--w60);margin-top:2px}
   .tool em{display:block;font-style:normal;font-size:15px;color:var(--w40);margin-top:4px}
-  .mx{margin-top:28px}
-  .mx th{font-size:15px;letter-spacing:.04em;text-transform:none;text-align:center;padding:12px 8px}
+  .mx{margin-top:26px}
+  .mx th{font-size:15px;text-align:center;padding:12px 8px}
   .mx th:first-child{text-align:left;padding-left:20px}
   .mx td{padding:8px;font-size:30px;line-height:1;text-align:center;color:var(--goldb)}
   .mx td:first-child{text-align:left;padding-left:20px;color:var(--ink);font-weight:500;font-size:21px;line-height:1.4}
@@ -153,100 +173,138 @@
 
 <main class="scaler" id="scaler">
 
-<!-- 1 · cover -->
-<section class="slide active" aria-label="หน้าแรก">
+<!-- ============ OVERVIEW ============ -->
+
+<section class="slide active" aria-label="หน้าแรก" data-foot="NDF · Game Production">
   <div class="glow" style="width:640px;height:640px;background:radial-gradient(circle,rgba(198,168,107,.09) 0%,transparent 70%);right:-120px;top:-120px"></div>
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">Fortal XR Arena · Game Production</div>
+    <div class="kicker">NDF · Game Production · 2026</div>
     <h1>ทำเกมกับ AI<br><em>เร็วตรงไหน ช้าตรงไหน</em></h1>
     <div class="rule"></div>
-    <div class="lead">เปิดประวัติ Git ของเกมที่ทีมทำจริง ดูว่าแต่ละช่วงใช้เวลาเท่าไร ใช้เครื่องมืออะไร และเวลาส่วนใหญ่หมดไปกับอะไร</div>
+    <div class="lead">สรุปจากฝั่ง NDF จาก 6 เกมที่ทำระหว่างเดือนสิงหาคมถึงพฤศจิกายน ว่าแต่ละเกมใช้เวลาเท่าไร เวลาส่วนใหญ่ไปอยู่ที่ขั้นไหน และใช้เครื่องมืออะไรบ้าง</div>
+    <div class="chips"><span>Crimson Raid</span><span>Catch a Butterfly</span><span>Order Up!</span><span>Constellation Maker</span><span>RobloxFloor</span><span>ลอยกระทง · กำลังทำ</span></div>
   </div>
-  <div class="foot"><span>Game Production</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 2 · answer first -->
-<section class="slide" aria-label="คำตอบสั้น ๆ">
+<section class="slide" aria-label="คำตอบสั้น ๆ" data-foot="NDF · Game Production">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">คำตอบสั้น ๆ</div>
     <h2>เปิดเล่นได้เร็ว แต่ทางที่เหลือ<br><em>ยาวกว่าหลายเท่า</em></h2>
-    <div class="stats" style="grid-template-columns:1fr 1fr;gap:64px;margin-top:56px">
-      <div class="stat hero"><b>≤ 2 สัปดาห์</b><span>จากวันแรกจนเกมเปิดเล่นได้ ทั้งสองเกม</span></div>
-      <div class="stat hero"><b>9–10 สัปดาห์</b><span>จากวันแรกถึงเวอร์ชันล่าสุด และทั้งสองเกมยังต้องทดสอบที่สนามต่อ</span></div>
+    <div class="stats" style="grid-template-columns:1fr 1fr;gap:64px;margin-top:52px">
+      <div class="stat hero"><b>1 วัน – 3 สัปดาห์</b><span>จากวันแรกจนได้ต้นแบบที่เล่นได้</span></div>
+      <div class="stat hero"><b>9–14 สัปดาห์</b><span>จากวันแรกถึงเวอร์ชันล่าสุด ของเกมใหญ่ 4 เกม</span></div>
     </div>
-    <div class="lead" style="margin-top:44px">AI ช่วยให้ช่วงสร้างระบบเร็วขึ้นมาก ส่วนเวลาที่เหลือหมดไปกับฮาร์ดแวร์จริง งานภาพ และบั๊กที่เจอเฉพาะตอนเล่นจริง</div>
+    <div class="lead" style="margin-top:44px">Order Up! ไปถึงวันเปิดขายใน 14 สัปดาห์ และย้ายทั้งเกมจาก Unity มาเว็บได้ใน 7 วันเพราะมี AI เขียนโค้ดกับเทสต์ ส่วนเวลาที่เหลือของทุกเกมหมดไปกับฮาร์ดแวร์จริง งานภาพ และบั๊กที่เจอเฉพาะตอนเล่นจริง ส่วนงานทางเดินพื้น LED อย่าง RobloxFloor ใช้ 8 วันทั้งงาน</div>
   </div>
-  <div class="foot"><span>Game Production</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 3 · games table -->
-<section class="slide" aria-label="เกมที่นำมาเทียบ">
+<section class="slide" aria-label="เทียบกันเกมต่อเกม" data-foot="NDF · Game Production">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">เกมที่นำมาเทียบ</div>
+    <div class="kicker">6 เกมที่นำมาเทียบ</div>
     <h2>เทียบกันเกมต่อเกม</h2>
-    <table class="tbl">
-      <thead><tr><th style="width:30%">เกม</th><th style="width:17%">เปิดเล่นได้</th><th style="width:18%">ถึงเวอร์ชันล่าสุด</th><th class="r" style="width:10%">Commit</th><th class="r" style="width:8%">คน</th><th class="r" style="width:17%">โค้ด C#</th></tr></thead>
+    <table class="tbl six">
+      <thead><tr><th style="width:27%">เกม</th><th style="width:17%">ต้นแบบเล่นได้</th><th style="width:17%">ถึงเวอร์ชันล่าสุด</th><th class="r" style="width:8%">Commit</th><th class="r" style="width:8%">คนทำ</th><th style="width:23%;padding-left:34px">จุดเด่น</th></tr></thead>
       <tbody>
-        <tr><td><b>Crimson Raid</b><small>บอสไฟต์ 4 คน บนพื้น LED กับ 3 จอ</small></td><td class="g">~1.5 สัปดาห์<small>26 ส.ค.</small></td><td>~10 สัปดาห์<small>27 ต.ค.</small></td><td class="r">85</td><td class="r">~6</td><td class="r">~27,700<small>บรรทัด · 199 ไฟล์</small></td></tr>
-        <tr><td><b>Catch a Butterfly</b><small>MR จับผีเสื้อ หลายแว่นในห้องเดียว</small></td><td class="g">4 วัน<small>21 ส.ค.</small></td><td>9 สัปดาห์<small>19 ต.ค.</small></td><td class="r">24</td><td class="r">2</td><td class="r">~24,500<small>บรรทัด · 126 ไฟล์</small></td></tr>
-        <tr class="wait"><td><b>[เกมที่ 3]</b><small>รอสรุปจากทีม</small></td><td>–</td><td>–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td></tr>
-        <tr class="wait"><td><b>[เกมที่ 4]</b><small>รอสรุปจากทีม</small></td><td>–</td><td>–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td></tr>
+        <tr><td><b>Crimson Raid</b><small>บอสไฟต์ 4 คน บนพื้น LED กับ 3 จอ</small></td><td class="g">~1.5 สัปดาห์<small>26 ส.ค.</small></td><td>~10 สัปดาห์<small>27 ต.ค.</small></td><td class="r">85</td><td class="r">~6</td><td style="padding-left:34px">AI ทำระบบใหม่เกือบทั้งเกมใน 5 วัน</td></tr>
+        <tr><td><b>Catch a Butterfly</b><small>MR จับผีเสื้อ หลายแว่นในห้องเดียว</small></td><td class="g">4 วัน<small>21 ส.ค.</small></td><td>9 สัปดาห์<small>19 ต.ค.</small></td><td class="r">24</td><td class="r">2</td><td style="padding-left:34px">ทุกแว่นเล่นครบลูปได้ในวันที่ 4</td></tr>
+        <tr class="star"><td><b>Order Up!</b><small>ครัวไทย MR เล่นพร้อมกัน 5 คน</small></td><td class="g">~3 สัปดาห์<small>จบต้นแบบ Unity 25 ส.ค.</small></td><td>14 สัปดาห์<small>วันเปิดขาย 12 พ.ย.</small></td><td class="r">561</td><td class="r">1 + AI</td><td style="padding-left:34px">ย้ายทั้งเกมจาก Unity มาเว็บใน 7 วัน</td></tr>
+        <tr><td><b>Constellation Maker</b><small>ต่อกลุ่มดาวบนพื้น LED คู่กับ iPad</small></td><td class="g">วันแรก<small>ต้นแบบเว็บ 6 ส.ค.</small></td><td>~10 สัปดาห์<small>14 ต.ค.</small></td><td class="r">133</td><td class="r">~4</td><td style="padding-left:34px">พื้น LED จอผนัง และ iPad เล่นพร้อมกัน</td></tr>
+        <tr><td><b>RobloxFloor</b><small>ทางเดินพื้น LED กับกำแพง 2 ฝั่ง</small></td><td class="g">วันแรก<small>23 ต.ค.</small></td><td>8 วัน<small>30 ต.ค.</small></td><td class="r">13</td><td class="r">3</td><td style="padding-left:34px">12 ธีม และ lidar 3 ตัว จบใน 8 วัน</td></tr>
+        <tr class="wait"><td><b>ลอยกระทง</b><small>กำลังทำ · รอข้อมูลจากเด็คของทีม</small></td><td>–</td><td>–</td><td class="r">–</td><td class="r">–</td><td style="padding-left:34px">–</td></tr>
       </tbody>
     </table>
-    <div class="lead" style="font-size:20px;margin-top:22px">นับวันตามปฏิทินจาก commit แรก ไม่ได้แปลว่าทำเต็มวันทุกวัน · “คน” คือจำนวนคนที่ commit โค้ดหรือ Art</div>
+    <div class="lead" style="font-size:19px;margin-top:20px">นับวันตามปฏิทินจาก commit แรก ไม่ได้แปลว่าทำเต็มวันทุกวัน · “คนทำ” คือจำนวนคนที่ commit โค้ดหรือ Art · Constellation Maker รวม 3 repo</div>
   </div>
-  <div class="foot"><span>Game Production</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 4 · gantt -->
-<section class="slide" aria-label="ปฏิทินของทุกเกม">
+<section class="slide" aria-label="ปฏิทินของทุกเกม" data-foot="NDF · Game Production">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">ปฏิทินเดียวกัน · 17 ส.ค. – 27 ต.ค. 2026</div>
+    <div class="kicker">ปฏิทินเดียวกัน · ส.ค. – พ.ย. 2026</div>
     <h2>แถบส่วนใหญ่อยู่หลัง<em>วันที่เปิดเล่นได้</em></h2>
     <div class="legend">
       <span><i class="c-build"></i>สร้างระบบเกม</span>
       <span><i class="c-art"></i>ภาพ เสียง และเอฟเฟกต์</span>
-      <span><i class="c-test"></i>ทดสอบกับฮาร์ดแวร์จริงและขัดเกลา</span>
+      <span><i class="c-test"></i>ทดสอบในสนามจริงและขัดเกลา</span>
       <span>ตัวเลขในแถบ = จำนวน commit</span>
     </div>
     <div class="gantt">
       <div class="grow">
         <div class="gname">Crimson Raid<span>พื้น LED กับ 3 จอ</span></div>
         <div class="track">
-          <div class="seg c-build" style="left:0%;width:14.29%">15</div>
-          <div class="seg c-art" style="left:19.48%;width:14.29%">24</div>
-          <div class="seg c-art" style="left:37.66%;width:23.38%">22</div>
-          <div class="seg c-build" style="left:63.64%;width:6.49%">20</div>
-          <div class="seg c-test" style="left:75.32%;width:18.18%">4</div>
-          <div class="mark" style="left:11.69%"><em>เล่นได้ 26 ส.ค.</em></div>
+          <div class="seg c-build" style="left:13.33%;width:10.48%">15</div>
+          <div class="seg c-art" style="left:27.62%;width:10.48%">24</div>
+          <div class="seg c-art" style="left:40.95%;width:17.14%">22</div>
+          <div class="seg c-build" style="left:60%;width:4.76%">20</div>
+          <div class="seg c-test" style="left:68.57%;width:13.33%">4</div>
+          <div class="mark" style="left:21.9%"><em>เล่นได้ 26 ส.ค.</em></div>
         </div>
       </div>
-      <div class="grow" style="padding-top:34px">
+      <div class="grow">
         <div class="gname">Catch a Butterfly<span>MR หลายแว่น</span></div>
         <div class="track">
-          <div class="seg c-build" style="left:1.3%;width:10.2%">5</div>
-          <div class="seg c-build" style="left:11.9%;width:16.6%">6</div>
-          <div class="seg c-art" style="left:36.36%;width:19.48%">8</div>
-          <div class="seg c-test" style="left:63.64%;width:19.48%">5</div>
-          <div class="mark" style="left:5.19%"><em>เล่นได้ 21 ส.ค.</em></div>
+          <div class="seg c-build" style="left:14.29%;width:7.4%">5</div>
+          <div class="seg c-build" style="left:22.1%;width:12.1%">6</div>
+          <div class="seg c-art" style="left:40%;width:14.29%">8</div>
+          <div class="seg c-test" style="left:60%;width:14.29%">5</div>
+          <div class="mark" style="left:17.14%"><em>เล่นได้ 21 ส.ค.</em></div>
         </div>
       </div>
-      <div class="grow wait" style="padding-top:34px"><div class="gname">[เกมที่ 3]</div><div class="track">รอสรุปจากทีม</div></div>
-      <div class="grow wait"><div class="gname">[เกมที่ 4]</div><div class="track">รอสรุปจากทีม</div></div>
+      <div class="grow">
+        <div class="gname">Order Up!<span>MR ครัว 5 คน · Unity แล้วเว็บ</span></div>
+        <div class="track">
+          <div class="seg c-build" style="left:2.86%;width:19.05%">51</div>
+          <div class="seg c-build" style="left:37.14%;width:32.1%">81</div>
+          <div class="seg c-build" style="left:69.52%;width:6.67%">146</div>
+          <div class="seg c-test" style="left:80%;width:5.71%">99</div>
+          <div class="seg c-art" style="left:86.67%;width:4.5%">124</div>
+          <div class="seg c-art" style="left:91.43%;width:4.76%">47</div>
+          <div class="seg c-test" style="left:96.19%;width:1.1%"></div>
+          <div class="mark" style="left:20.95%"><em>จบต้นแบบ 25 ส.ค.</em></div>
+          <div class="mark end" style="left:97.3%"><em>เปิดขาย 12 พ.ย.</em></div>
+        </div>
+      </div>
+      <div class="grow">
+        <div class="gname">Constellation Maker<span>พื้น LED · จอผนัง · iPad</span></div>
+        <div class="track">
+          <div class="seg c-build" style="left:2.86%;width:5.71%">19</div>
+          <div class="seg c-build" style="left:9.52%;width:26.67%">18</div>
+          <div class="seg c-build" style="left:46.67%;width:10.48%">49</div>
+          <div class="seg c-art" style="left:60%;width:3.81%">35</div>
+          <div class="seg c-test" style="left:67.62%;width:2.2%">10</div>
+          <div class="mark" style="left:2.86%"><em>เล่นได้ 6 ส.ค.</em></div>
+        </div>
+      </div>
+      <div class="grow">
+        <div class="gname">RobloxFloor<span>ทางเดินพื้น LED · 8 วัน</span></div>
+        <div class="track">
+          <div class="seg c-build" style="left:77.14%;width:0.95%"></div>
+          <div class="seg c-art" style="left:78.2%;width:3.7%"></div>
+          <div class="seg c-art" style="left:82.1%;width:1.8%"></div>
+          <div class="mark" style="left:77.14%"><em>เล่นได้ 23 ต.ค.</em></div>
+        </div>
+      </div>
+      <div class="grow wait">
+        <div class="gname">ลอยกระทง<span>กำลังทำ</span></div>
+        <div class="track" style="border:2px dashed var(--w12);border-radius:10px;background:none;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--w40)">รอข้อมูลจากเด็คของทีม</div>
+      </div>
       <div class="ticks"><div></div><div>
-        <span style="left:0%">17 ส.ค.</span><span style="left:19.48%">1 ก.ย.</span><span style="left:37.66%">15 ก.ย.</span><span style="left:58.44%">1 ต.ค.</span><span style="left:76.62%">15 ต.ค.</span><span style="left:100%">1 พ.ย.</span>
+        <span style="left:0%">3 ส.ค.</span><span style="left:27.62%">1 ก.ย.</span><span style="left:56.19%">1 ต.ค.</span><span style="left:85.71%">1 พ.ย.</span><span style="left:100%">16 พ.ย.</span>
       </div></div>
     </div>
   </div>
-  <div class="foot"><span>Game Production</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 5 · Crimson intro -->
-<section class="slide" aria-label="Crimson Raid">
+<!-- ============ 01 CRIMSON RAID ============ -->
+
+<section class="slide" aria-label="Crimson Raid" data-foot="เกมที่ 1 · Crimson Raid">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="ghost">01</div>
@@ -260,11 +318,10 @@
       <div class="stat"><b>11</b><span>ท่าบอส รวมท่าสถานะ ฮีล และโล่</span></div>
     </div>
   </div>
-  <div class="foot"><span>Crimson Raid</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 6 · Crimson phases -->
-<section class="slide" aria-label="Crimson Raid ช่วงของงาน">
+<section class="slide" aria-label="Crimson Raid ช่วงของงาน" data-foot="เกมที่ 1 · Crimson Raid">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Crimson Raid · 17 ส.ค. – 27 ต.ค. · 85 commit</div>
@@ -277,11 +334,10 @@
       <div class="phase"><i class="c-test"></i><h3>ขัดเกลาหน้างาน<small>ราว 14–27 ต.ค. · 4 commit</small></h3><p>บทสอนเล่น ฉากจบ เสียง และเมนู Kiosk แต่ละ commit แก้ 25–118 ไฟล์</p></div>
     </div>
   </div>
-  <div class="foot"><span>Crimson Raid</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 7 · Crimson time -->
-<section class="slide" aria-label="Crimson Raid เวลาหมดไปกับอะไร">
+<section class="slide" aria-label="Crimson Raid เวลาหมดไปกับอะไร" data-foot="เกมที่ 1 · Crimson Raid">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Crimson Raid · หลังเปิดเล่นได้</div>
@@ -299,11 +355,12 @@
       <div class="callout warn"><b>ยังค้าง</b><p>หัว 3D จาก Fortal ID ยังปิดไว้ในฉากเล่น และยังต้องทดสอบกับผู้เล่นจริงที่สนาม</p></div>
     </div>
   </div>
-  <div class="foot"><span>Crimson Raid</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 8 · Butterfly intro -->
-<section class="slide" aria-label="Catch a Butterfly">
+<!-- ============ 02 CATCH A BUTTERFLY ============ -->
+
+<section class="slide" aria-label="Catch a Butterfly" data-foot="เกมที่ 2 · Catch a Butterfly">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="ghost">02</div>
@@ -317,11 +374,10 @@
       <div class="stat"><b>21–26</b><span>ผีเสื้อที่บินอยู่ในห้อง รวมตัวหลอก</span></div>
     </div>
   </div>
-  <div class="foot"><span>Catch a Butterfly</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 9 · Butterfly phases -->
-<section class="slide" aria-label="Catch a Butterfly ช่วงของงาน">
+<section class="slide" aria-label="Catch a Butterfly ช่วงของงาน" data-foot="เกมที่ 2 · Catch a Butterfly">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Catch a Butterfly · 18 ส.ค. – 19 ต.ค. · 24 commit</div>
@@ -333,11 +389,10 @@
       <div class="phase"><i class="c-test"></i><h3>ให้หลายแว่นเล่นด้วยกันได้นิ่ง<small>5–19 ต.ค. · 5 commit</small></h3><p>แก้เรื่องใครถือผีเสื้อตัวไหนผ่าน LAN กู้ตำแหน่งห้องเมื่อแว่นหลุด ให้ PC ตัดสินเกมพร้อมหน้าจอคนดู และแก้อาการเล่นนานแล้วจับไม่ติด</p></div>
     </div>
   </div>
-  <div class="foot"><span>Catch a Butterfly</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- 10 · Butterfly time -->
-<section class="slide" aria-label="Catch a Butterfly เวลาหมดไปกับอะไร">
+<section class="slide" aria-label="Catch a Butterfly เวลาหมดไปกับอะไร" data-foot="เกมที่ 2 · Catch a Butterfly">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">Catch a Butterfly · หลังเปิดเล่นได้</div>
@@ -353,16 +408,192 @@
       <div class="callout warn"><b>ยังค้าง</b><p>ยังไม่ได้เล่นยาวด้วยแว่นหลายเครื่องหลังแก้ และชื่อผีเสื้อ Bhutanitis สะกดไม่ตรงกับโค้ด คะแนนพิเศษของชนิดนี้จึงไม่ทำงาน</p></div>
     </div>
   </div>
-  <div class="foot"><span>Catch a Butterfly</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- games made with AI -->
-<section class="slide" aria-label="เกมที่ทำร่วมกับ AI">
+<!-- ============ 03 ORDER UP! ============ -->
+
+<section class="slide" aria-label="Order Up!" data-foot="เกมที่ 3 · Order Up!">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="ghost">03</div>
+    <div class="kicker">เกมที่ 3 · Order Up! · Mixed Reality</div>
+    <h2>ครัวไทยในห้องจริง<br><em>เล่นพร้อมกันได้ 5 คน</em></h2>
+    <div class="lead">ผู้เล่นใส่ Meta Quest 3 ยืนในครัวเดียวกันในห้องจริง แบ่งหน้าที่กัน 5 ตำแหน่ง หัวหน้าเชฟอ่าน Order ให้ทีมฟัง แล้วช่วยกันตวง ผัด และส่งอาหาร เกมนี้ทำสองรอบ รอบแรกด้วย Unity แล้วย้ายทั้งเกมมาเว็บเพื่อให้เปิดจากลิงก์ได้ทันที</div>
+    <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+      <div class="stat"><b>99 วัน</b><span>ตั้งแต่ 6 ส.ค. ถึงวันเปิดขาย 12 พ.ย.</span></div>
+      <div class="stat"><b>561</b><span>commit โดย 537 commit เขียนร่วมกับ AI</span></div>
+      <div class="stat"><b>1,943</b><span>เทสต์ที่ต้องผ่านก่อนขึ้นเว็บทุกครั้ง</span></div>
+      <div class="stat"><b>2</b><span>คนทำ: Mond ออกแบบและเล่นทดสอบ Almondo (AI) เขียนโค้ดและแก้บั๊ก</span></div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<section class="slide" aria-label="Order Up! ช่วงของงาน" data-foot="เกมที่ 3 · Order Up!">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="kicker">Order Up! · 6 ส.ค. – 12 พ.ย. · 561 commit</div>
+    <h2>7 ช่วงของงาน ใน 2 รอบ</h2>
+    <div class="phases dense">
+      <div class="round">รอบแรก · Unity · 132 commit</div>
+      <div class="phase"><i class="c-build"></i><h3>ต้นแบบ Unity<small>6–25 ส.ค. · 51 commit</small></h3><p>ให้หลายคนยืนในครัวเดียวกันในห้องจริงผ่าน LAN มีระบบตวง เท ผัด และไฟบนกระทะ</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ครัวเต็มรูปแบบ<small>11 ก.ย. – 14 ต.ค. · 81 commit</small></h3><p>หน้าที่ 5 คน Order และคะแนน ความร้อนแยกตามจุดบนกระทะ และเสียงทุกเหตุการณ์ในครัว</p></div>
+      <div class="round">รอบสอง · เว็บ · 429 commit</div>
+      <div class="phase"><i class="c-build"></i><h3>ย้ายมาเว็บ<small>15–21 ต.ค. · 146 commit</small></h3><p><b>ทั้งเกมใน 7 วัน</b> ด้วย three.js กับ WebXR เปิดจากลิงก์ใน Fortal OS ไม่ต้องติดตั้ง</p></div>
+      <div class="phase"><i class="c-test"></i><h3>สถานที่จริง<small>26–31 ต.ค. · 99 commit</small></h3><p>วางครัวให้ตรงห้องจริง ใช้ผังสนาม Happitat 15 × 8 เมตร และเล่นได้เฉพาะแว่นของสนาม</p></div>
+      <div class="phase"><i class="c-art"></i><h3>หน้าตาใหม่<small>2–6 พ.ย. · 124 commit</small></h3><p>สร้างครัวใหม่ทั้งหมดด้วยโค้ด แบบ low-poly ที่ดูปั้นด้วยมือ และใช้โหมด casual เป็นค่าเริ่มต้น</p></div>
+      <div class="phase"><i class="c-art"></i><h3>เพื่อนร่วมครัว<small>7–11 พ.ย. · 47 commit</small></h3><p>ผู้เล่นคนอื่นเป็นเชฟ 3D ที่ขยับตามคนใส่แว่นจริง และมีบอทเล่นทดสอบครบรอบบนแว่นเอง</p></div>
+      <div class="phase"><i class="c-test"></i><h3>เก็บงาน<small>12 พ.ย. · 13 commit</small></h3><p>เล่นจริงในแว่น บอกปัญหา แล้วแก้และขึ้นเว็บได้ 3 ครั้งในวันเดียว</p></div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<section class="slide" aria-label="Order Up! ย้ายมาเว็บ" data-foot="เกมที่ 3 · Order Up!">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="kicker">Order Up! · 15 ต.ค. – 12 พ.ย.</div>
+    <h2>ย้ายมาเว็บใน 7 วัน<br><em>แล้วใช้อีก 3 สัปดาห์ทำให้สนุกในสนามจริง</em></h2>
+    <div class="cards" style="grid-template-columns:1fr 1fr">
+      <div class="card"><div class="tag">7 วันที่ย้ายมาเว็บ</div><div class="big">146 commit</div>
+        <ul>
+          <li>วันแรกแปลงกติกาเกมจาก C# เป็น JavaScript 89 โมดูล พร้อมเทสต์ 1,246 ข้อที่ให้ผลตรงกับของเดิม</li>
+          <li>ห้องเกมรันบน Cloudflare และเป็นตัวตัดสินผล ทุกแว่นจึงเห็นผลเหมือนกัน</li>
+          <li>ของตกและกลิ้งด้วยฟิสิกส์ Rapier มีกล้องคนดูและหน้าควบคุมของ Staff</li>
+        </ul>
+      </div>
+      <div class="card"><div class="tag">3 สัปดาห์ในสนามจริง</div><div class="big">283 commit</div>
+        <ul>
+          <li>วางครัวให้ตรงห้องจริง แว่นจำห้องได้ และเล่นได้เฉพาะแว่นของสนามผ่าน Fortal OS</li>
+          <li>ครัว low-poly ที่ดูปั้นด้วยมือ เพิ่มรายละเอียดโดยโพลิกอนเพิ่มแค่ 12%</li>
+          <li>เชฟ 3D ของเพื่อน ขาปรับตามส่วนสูงของคนใส่แว่น และปากขยับตามเสียงพูด</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<section class="slide" aria-label="Order Up! วงจรที่ทำซ้ำทุกวัน" data-foot="เกมที่ 3 · Order Up!">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="kicker">Order Up! · วิธีทำงาน</div>
+    <h2>วงจรที่ทำซ้ำทุกวัน</h2>
+    <div class="cards" style="grid-template-columns:repeat(4,1fr)">
+      <div class="card"><div class="stepnum">1</div><h3>เล่นในห้องจริง</h3><p>Mond ใส่แว่นเล่นเองทุกวัน</p></div>
+      <div class="card"><div class="stepnum">2</div><h3>เล่าเป็นคำธรรมดา</h3><p>เช่น “คืนของยากมาก” หรือ “มือปัดของกระเด็น”</p></div>
+      <div class="card"><div class="stepnum">3</div><h3>AI หาสาเหตุและแก้</h3><p>หาต้นเหตุในโค้ด แก้ แล้วเพิ่มเทสต์กันพังซ้ำ</p></div>
+      <div class="card"><div class="stepnum">4</div><h3>ขึ้นเว็บเมื่อ Mond สั่ง</h3><p>เทสต์ทั้งหมดต้องผ่านก่อนทุกครั้ง</p></div>
+    </div>
+    <div class="callouts">
+      <div class="callout"><b>แบ่งหน้าที่</b><p>Mond ตัดสินว่าเกมควรเป็นแบบไหนและอะไรสนุก ส่วน Almondo เขียนโค้ด เขียนเทสต์ ลองบนแว่น และจำว่าเคยลองอะไรไปแล้ว</p></div>
+      <div class="callout"><b>ตัวอย่างวันที่ 12 พ.ย.</b><p>ถาดเรืองแสงเมื่อแตะ เสียงลังมาจากทิศของตู้เย็น และมือปัดเบาลงจนของไม่กระเด็น ทั้งหมดขึ้นเว็บในวันเดียว</p></div>
+    </div>
+    <div class="quote">AI ทำให้เขียนเกมเร็วขึ้น แต่เกมดีขึ้นเพราะมีคนเล่นในแว่นทุกวัน<small>จากสรุปไทม์ไลน์ Order Up!</small></div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<!-- ============ 04 CONSTELLATION MAKER ============ -->
+
+<section class="slide" aria-label="Constellation Maker" data-foot="เกมที่ 4 · Constellation Maker">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="ghost">04</div>
+    <div class="kicker">เกมที่ 4 · Constellation Maker · พื้น LED คู่กับเว็บ</div>
+    <h2>เหยียบดาวบนพื้น LED<br><em>ต่อเป็นกลุ่มดาวด้วยกัน</em></h2>
+    <div class="lead">คนบนพื้นเหยียบดาวให้ครบ คนถือ iPad เห็นแผนที่คำตอบแล้วบอกทางเพื่อน ส่วนจอผนังเล่าเรื่องให้คนที่รอคิวดู ทั้งสามจอเล่นพร้อมกันในรอบเดียว</div>
+    <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+      <div class="stat"><b>3 จอ</b><span>พื้น LED จอผนัง และ iPad ของผู้นำทาง</span></div>
+      <div class="stat"><b>12 × 5</b><span>ช่องบนพื้น ตรงกับรอยต่อแผ่น LED จริง</span></div>
+      <div class="stat"><b>5 รอบ</b><span>ไล่ความยาก มีดาวพลังงาน ดาวหนี และซูเปอร์โนวา</span></div>
+      <div class="stat"><b>68 วินาที</b><span>วิดีโอ Intro พากย์ไทยและอังกฤษ</span></div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<section class="slide" aria-label="Constellation Maker ช่วงของงาน" data-foot="เกมที่ 4 · Constellation Maker">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="kicker">Constellation Maker · 6 ส.ค. – 14 ต.ค. · 133 commit ใน 3 repo</div>
+    <h2>5 ช่วงของงาน</h2>
+    <div class="phases">
+      <div class="phase"><i class="c-build"></i><h3>ต้นแบบเว็บ พื้นกับผนัง<small>6–11 ส.ค. · 19 commit</small></h3><p><b>Codex ทำต้นแบบสองจอเสร็จในวันแรก</b> ต่อด้วยข้อมูลกลุ่มดาวจริง โหมดง่าย และหน้าสาธิต</p></div>
+      <div class="phase"><i class="c-build"></i><h3>ลง Unity บนพื้นจริง<small>13 ส.ค. – 9 ก.ย. · 18 commit</small></h3><p>ตำแหน่งบนพื้น โซน Ready คะแนน ชุดราศี และกราฟิก</p></div>
+      <div class="phase"><i class="c-build"></i><h3>iPad ผู้นำทางและโหมดออนไลน์<small>21 ก.ย. – 1 ต.ค. · 49 commit</small></h3><p>เว็บ iPad เห็นแผนที่คำตอบ จับคู่กับเกมด้วยรหัส 4 หลัก และเว็บต้นแบบเพิ่มโหมดเรียนรู้กับเหตุการณ์สุ่ม</p></div>
+      <div class="phase"><i class="c-art"></i><h3>ด่าน ภาพ และเสียง<small>5–8 ต.ค. · 35 commit</small></h3><p>ด่านไล่ระดับ ดาวหนี ซูเปอร์โนวา วิดีโอ Intro เพลง และเสียงพากย์</p></div>
+      <div class="phase"><i class="c-test"></i><h3>แก้หลังผู้ลงทุนลองเล่น<small>13–14 ต.ค. · 10 commit</small></h3><p>จอพื้นบอกเป้าหมายและเล่าเรื่อง เส้นสีทองบนพื้น รอบสอนเล่น และภาษาอังกฤษ</p></div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<section class="slide" aria-label="Constellation Maker เวลาหมดไปกับอะไร" data-foot="เกมที่ 4 · Constellation Maker">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="kicker">Constellation Maker · หลังเปิดเล่นได้</div>
+    <h2>เวลาที่เหลือหมดไปกับอะไร</h2>
+    <div class="cards" style="grid-template-columns:1fr 1fr">
+      <div class="card"><h3>สามส่วนต้องคุยกันได้</h3><p>เกม Unity บนพื้น เว็บ iPad และเว็บต้นแบบ ทำไปพร้อมกัน ทุกส่วนใช้ข้อตกลงการรับส่งข้อมูลชุดเดียวกัน และต้องเล่นได้ทั้งผ่าน LAN และออนไลน์</p></div>
+      <div class="card"><h3>พื้นจริงไม่ตรงกับค่าในโค้ด</h3><p>ต้องวัดจากค่าเซ็นเซอร์ในฉากจนได้พื้น 25 × 5 แผ่น แล้วจัดช่องบนพื้นเป็น 12 × 5 ให้ตรงรอยต่อแผ่นจริง</p></div>
+      <div class="card"><h3>ผู้ลงทุนเล่นแล้วงง</h3><p>13 ต.ค. เล่นได้ 1–3 รอบก็เบื่อ คนบนพื้นดูแต่จอพื้นและไม่รู้ว่ากำลังต่อรูปอะไร ทีมแก้เสร็จภายใน 2 วัน</p></div>
+      <div class="card"><h3>เสียงและวิดีโอ</h3><p>Intro 68 วินาที เพลงจาก Suno เสียงเอฟเฟกต์จาก ElevenLabs และเสียงพากย์ 12 ประโยคจาก Voice Studio</p></div>
+    </div>
+    <div class="callouts">
+      <div class="callout"><b>AI ช่วยตรงไหน</b><p>Codex ทำต้นแบบเว็บในวันแรก Claude เขียนเว็บ iPad 30 จาก 36 commit และงานฝั่ง Unity อีก 28 commit</p></div>
+      <div class="callout warn"><b>ยังค้าง</b><p>ไฟล์ Intro สำหรับจอผนังเต็มความกว้าง 12,288 พิกเซล ยังต้องตกลงรูปแบบไฟล์กับทีม Unity</p></div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<!-- ============ 05 ROBLOXFLOOR ============ -->
+
+<section class="slide" aria-label="RobloxFloor" data-foot="เกมที่ 5 · RobloxFloor">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="ghost">05</div>
+    <div class="kicker">เกมที่ 5 · RobloxFloor · พื้น LED กับกำแพง LED</div>
+    <h2>ทางเดินเรืองแสง<br><em>ที่ตอบสนองทุกก้าว</em></h2>
+    <div class="lead">งานนิทรรศการ Roblox เป็นทางเดินพื้น LED ยาว 19 เมตร มีกำแพง LED สองฝั่ง และ lidar 3 ตัวจับตำแหน่งเท้า คนที่เดินผ่านจะเหยียบกล่องให้แตก กดคีย์บอร์ดยักษ์ หรือวิ่งเข้าเส้นชัย สลับได้ 12 ธีม</div>
+    <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+      <div class="stat"><b>19 × 5 ม.</b><span>ทางเดินพื้น LED ในสนามจริง</span></div>
+      <div class="stat"><b>3</b><span>lidar จับตำแหน่งเท้าคนเดิน</span></div>
+      <div class="stat"><b>12</b><span>ธีมให้เลือก ตั้งแต่กล่องสุ่มถึงพื้นลาวา</span></div>
+      <div class="stat"><b>8 วัน</b><span>จาก commit แรกถึงล่าสุด รวม 13 commit</span></div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<section class="slide" aria-label="RobloxFloor ช่วงของงาน" data-foot="เกมที่ 5 · RobloxFloor">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="kicker">RobloxFloor · 23–30 ต.ค. · 13 commit</div>
+    <h2>8 วันของงาน</h2>
+    <div class="phases">
+      <div class="phase"><i class="c-build"></i><h3>ระบบพื้นและกำแพง<small>23 ต.ค. · 1 commit</small></h3><p>พื้น 19 × 5 กำแพง LED สองฝั่ง รับตำแหน่งเท้าจาก lidar และหน้าตั้งค่าสถานที่ <b>ทั้งหมดมาใน commit แรก</b></p></div>
+      <div class="phase"><i class="c-art"></i><h3>ภาพและการติดตั้ง<small>24–27 ต.ค. · 4 commit</small></h3><p>ปรับภาพบนพื้น เขียนคู่มือ และตั้งค่าเครื่องใหม่ที่สนาม</p></div>
+      <div class="phase"><i class="c-art"></i><h3>วิดีโอกำแพงและเสียง<small>29–30 ต.ค. · 8 commit</small></h3><p>วิดีโอแยกตามฝั่งกำแพง หน้า Thank You เสียงคีย์บอร์ด และวิดีโอที่พอดีกำแพง 4,500 × 900 พิกเซล</p></div>
+    </div>
+    <div class="callouts">
+      <div class="callout"><b>AI ช่วยตรงไหน</b><p>Claude ทำเสียงคีย์บอร์ดด้วย ElevenLabs และตัดวิดีโอกำแพงให้พอดีความละเอียดจริงของจอ</p></div>
+      <div class="callout warn"><b>ลองแล้วไม่ผ่าน</b><p>สังเคราะห์เสียงคีย์บอร์ดเองด้วยโค้ด 4 รอบแต่เสียงไม่ผ่าน จึงย้ายไปใช้ ElevenLabs</p></div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span class="pg"></span></div>
+</section>
+
+<!-- ============ 06 GAMES AND TOOLS ============ -->
+
+<section class="slide" aria-label="เกมที่ทำร่วมกับ Claude" data-foot="เกมและเครื่องมือ">
+  <div class="bar"><div class="bar-fill"></div></div>
+  <div class="body">
+    <div class="ghost">06</div>
     <div class="kicker">เกมและเครื่องมือ · มิ.ย. – พ.ย. 2026</div>
-    <h2>8 เกมที่ทำร่วมกับ AI</h2>
+    <h2>8 เกมที่ทำร่วมกับ Claude</h2>
     <div class="cards" style="grid-template-columns:repeat(4,1fr)">
       <div class="card"><div class="tag">Web · มิ.ย.</div><h3>67Game</h3><p>เกมนับมือ 6-7 สำหรับบูธงาน มีกระดานคะแนนและจอ TV</p></div>
       <div class="card"><div class="tag">Web · มิ.ย.</div><h3>Toku Panel</h3><p>เกมเปิดภาพทายอนิเมะ 3 คน พร้อมหลังบ้านจัดคำถาม</p></div>
@@ -371,14 +602,13 @@
       <div class="card"><div class="tag">Unity พื้น LED · ส.ค. – ต.ค.</div><h3>Crimson Raid</h3><p>บอสไฟต์ 4 คน ตอบคำถาม AI แล้ววิ่งหลบบนพื้น</p></div>
       <div class="card"><div class="tag">Unity · Quest MR · ต.ค.</div><h3>While We West</h3><p>เริ่มเป็นคาวบอย FPS แล้วเปลี่ยนเป็นปล้นรถไฟแบบ MR หลายคน</p></div>
       <div class="card"><div class="tag">WebXR บน Quest 3 · ต.ค. – พ.ย.</div><h3>While We West XR</h3><p>เวอร์ชันเว็บ ต่อมาเปลี่ยนเป็นเกมเอาตัวรอดกลางทะเลทราย 119 commit</p></div>
-      <div class="card"><div class="tag">Unity พื้น LED · ต.ค.</div><h3>Neon Keyboard</h3><p>เหยียบคีย์บนพื้น LED แล้วได้ยินเสียงคีย์บอร์ดแบบ ASMR</p></div>
+      <div class="card"><div class="tag">Unity พื้น LED · ต.ค.</div><h3>RobloxFloor</h3><p>ทางเดินพื้น LED 12 ธีม รวมคีย์บอร์ดยักษ์ที่มีเสียง ASMR</p></div>
     </div>
   </div>
-  <div class="foot"><span>เกมและเครื่องมือ</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- tools by job -->
-<section class="slide" aria-label="เครื่องมือที่ใช้ แบ่งตามงาน">
+<section class="slide" aria-label="เครื่องมือที่ใช้ แบ่งตามงาน" data-foot="เกมและเครื่องมือ">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">เกมและเครื่องมือ</div>
@@ -390,7 +620,7 @@
         <div class="tool"><b>Coplay MCP</b><span>ให้ AI สั่ง Unity Editor ได้ตรง</span><em>Constellation · While We West</em></div>
       </div>
       <div class="tcol"><h3>ภาพ โมเดล วิดีโอ</h3>
-        <div class="tool"><b>LowPoly Studio</b><span>โมเดล low-poly ตัวละคร สัตว์ และพร็อพ</span><em>While We West XR</em></div>
+        <div class="tool"><b>LowPoly Studio</b><span>โมเดล low-poly ตัวละคร สัตว์ พร็อพ และผังสนาม</span><em>While We West XR · Order Up!</em></div>
         <div class="tool"><b>Meshy</b><span>เปลี่ยนรูปถ่ายเป็นหัว 3D ของผู้เล่น</span><em>Crimson Raid</em></div>
         <div class="tool"><b>Blender · Mixamo</b><span>โมเดลปืน Rig และท่าทางตัวละคร</span><em>While We West ทั้งสองเวอร์ชัน</em></div>
         <div class="tool"><b>Seedance</b><span>คลิปพื้นหลังของวิดีโอ Intro</span><em>Constellation Maker</em></div>
@@ -408,17 +638,16 @@
       </div>
     </div>
   </div>
-  <div class="foot"><span>เกมและเครื่องมือ</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- tool x game matrix -->
-<section class="slide" aria-label="เครื่องมือไหนใช้กับเกมไหน">
+<section class="slide" aria-label="เครื่องมือไหนใช้กับเกมไหน" data-foot="เกมและเครื่องมือ">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">เกมและเครื่องมือ</div>
     <h2>เครื่องมือไหนใช้กับเกมไหน</h2>
     <table class="tbl mx">
-      <thead><tr><th style="width:20%">เครื่องมือ</th><th>67Game</th><th>Toku</th><th>AI Guardian</th><th>Constellation</th><th>Crimson</th><th>WWW Unity</th><th>WWW XR</th><th>Neon Keyboard</th></tr></thead>
+      <thead><tr><th style="width:20%">เครื่องมือ</th><th>67Game</th><th>Toku</th><th>AI Guardian</th><th>Constellation</th><th>Crimson</th><th>WWW Unity</th><th>WWW XR</th><th>RobloxFloor</th></tr></thead>
       <tbody>
         <tr><td>Claude Code</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
         <tr><td>Codex</td><td></td><td></td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td></td></tr>
@@ -436,43 +665,43 @@
       </tbody>
     </table>
   </div>
-  <div class="foot"><span>เกมและเครื่องมือ</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- causes -->
-<section class="slide" aria-label="สิ่งที่กินเวลาซ้ำกันทุกเกม">
+<!-- ============ SUMMARY ============ -->
+
+<section class="slide" aria-label="สิ่งที่กินเวลาซ้ำกันทุกเกม" data-foot="สรุป">
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
-    <div class="kicker">ทุกเกมเจอเหมือนกัน</div>
+    <div class="kicker">เกมใหญ่ 4 เกม</div>
     <h2>สิ่งที่กินเวลาซ้ำกันทุกเกม</h2>
-    <table class="tbl">
-      <thead><tr><th style="width:26%">เรื่อง</th><th style="width:37%">Crimson Raid</th><th style="width:37%">Catch a Butterfly</th></tr></thead>
+    <table class="tbl five">
+      <thead><tr><th style="width:16%">เรื่อง</th><th style="width:21%">Crimson Raid</th><th style="width:21%">Catch a Butterfly</th><th style="width:21%">Order Up!</th><th style="width:21%">Constellation Maker</th></tr></thead>
       <tbody>
-        <tr><td class="g">ฮาร์ดแวร์ในสนาม</td><td>พื้น LED กับ 3 จอต้องทำงานพร้อมกัน</td><td>แว่นหลายเครื่องต้องเห็นห้องจริงตรงกัน</td></tr>
-        <tr><td class="g">บั๊กที่เจอตอนเล่นจริง</td><td>เกมไม่เริ่มใน Build และฉากจบค้าง</td><td>เล่นนานแล้วจับผีเสื้อไม่ติด</td></tr>
-        <tr><td class="g">งานภาพที่ต้องทำซ้ำ</td><td>ยกเครื่อง UI 2 รอบ</td><td>ตู้ Terrarium 3 เวอร์ชัน</td></tr>
-        <tr><td class="g">ให้ผู้เล่นเข้าใจและสนุก</td><td>วิดีโอ Intro เสียงพากย์ Demo และ Balance</td><td>ความเร็วและนิสัยการบินแยกตามชนิดผีเสื้อ</td></tr>
+        <tr><td class="g">ฮาร์ดแวร์ในสนาม</td><td>พื้น LED กับ 3 จอต้องทำงานพร้อมกัน</td><td>แว่นหลายเครื่องต้องเห็นห้องจริงตรงกัน</td><td>วางครัวให้ตรงห้องจริง และล็อกให้เล่นได้เฉพาะแว่นของสนาม</td><td>ช่องบนพื้นต้องตรงแผ่น LED จริง</td></tr>
+        <tr><td class="g">บั๊กที่เจอตอนเล่นจริง</td><td>เกมไม่เริ่มใน Build และฉากจบค้าง</td><td>เล่นนานแล้วจับผีเสื้อไม่ติด</td><td>คืนของยาก และมือปัดแล้วของกระเด็น</td><td>ดาวคำตอบห่างกันจนเส้นไม่ขึ้น</td></tr>
+        <tr><td class="g">งานภาพที่ทำซ้ำ</td><td>ยกเครื่อง UI 2 รอบ</td><td>ตู้ Terrarium 3 เวอร์ชัน</td><td>สร้างครัวใหม่ทั้งหมดด้วยโค้ด</td><td>ธีม UI ใหม่ให้เข้ากับ Intro</td></tr>
+        <tr><td class="g">ให้ผู้เล่นเข้าใจเอง</td><td>Intro เสียงพากย์ และ Demo สอนเล่น</td><td>ความเร็วผีเสื้อแยกตามชนิด</td><td>โหมด casual เป็นค่าเริ่มต้น</td><td>จอพื้นเล่าเรื่อง และรอบสอนเล่น</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="foot"><span>Game Production</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
-<!-- summary -->
-<section class="slide" aria-label="สรุป">
+<section class="slide" aria-label="สรุป" data-foot="สรุป">
   <div class="glow" style="width:700px;height:700px;background:radial-gradient(circle,rgba(198,168,107,.09) 0%,transparent 70%);left:-160px;bottom:-200px"></div>
   <div class="bar"><div class="bar-fill"></div></div>
   <div class="body">
     <div class="kicker">ถ้าจะประเมินเวลาเกมใหม่</div>
-    <h2>ประเมินจาก<em>สองเกมนี้</em></h2>
-    <div class="cards" style="grid-template-columns:repeat(3,1fr);margin-top:44px">
-      <div class="card"><div class="tag">ต้นแบบที่เล่นได้</div><h3 style="font-size:44px;color:var(--goldb)">1–2 สัปดาห์</h3><p>AI เขียนระบบหลักได้เร็ว เกม MR เล่นครบลูปได้ในวันที่ 4</p></div>
-      <div class="card"><div class="tag">ภาพ เสียง และระบบรอบสอง</div><h3 style="font-size:44px;color:var(--goldb)">4–6 สัปดาห์</h3><p>งานภาพมักต้องทำมากกว่าหนึ่งรอบ และต้องรอดูบนจอหรือในแว่นจริง</p></div>
-      <div class="card"><div class="tag">ทดสอบกับฮาร์ดแวร์จริง</div><h3 style="font-size:44px;color:var(--goldb)">2–3 สัปดาห์ขึ้นไป</h3><p>ต้องมีพื้น LED หรือแว่นหลายเครื่องให้ทดสอบ บั๊กหลายตัวโผล่เฉพาะตอนเล่นนาน</p></div>
+    <h2>ประเมินจาก<em>เกมที่ทำมาแล้ว</em></h2>
+    <div class="cards" style="grid-template-columns:repeat(3,1fr);margin-top:42px">
+      <div class="card"><div class="tag">ต้นแบบที่เล่นได้</div><div class="big">1 วัน – 3 สัปดาห์</div><p>AI เขียนระบบหลักได้เร็ว ต้นแบบเว็บเสร็จในวันแรก ส่วนเกม MR หลายแว่นเล่นครบลูปได้ในวันที่ 4</p></div>
+      <div class="card"><div class="tag">ภาพ เสียง และระบบรอบสอง</div><div class="big">4–6 สัปดาห์</div><p>งานภาพมักต้องทำมากกว่าหนึ่งรอบ และต้องดูบนจอหรือในแว่นจริงก่อนตัดสิน</p></div>
+      <div class="card"><div class="tag">ทดสอบในสนามจริง</div><div class="big">2–3 สัปดาห์ขึ้นไป</div><p>ต้องมีพื้น LED หรือแว่นหลายเครื่องให้ทดสอบ เพราะบั๊กหลายตัวโผล่เฉพาะตอนเล่นจริงหรือเล่นนาน</p></div>
     </div>
-    <div class="lead" style="margin-top:36px">ตัวเลขนี้มาจากสองเกม เมื่อทีมส่งสรุปเกมที่ 3 และ 4 มา จะเติมลงตารางและปฏิทินแล้วปรับช่วงเวลานี้อีกรอบ</div>
+    <div class="quote">งานทางเดินพื้น LED อย่าง RobloxFloor จบได้ในราว 1 สัปดาห์ ส่วนเกมใหญ่ ช่วงท้ายจะเร็วขึ้นถ้ามีคนเล่นในสนามจริงทุกวันแล้วให้ AI แก้ตาม แบบที่ Order Up! ทำจนไปถึงวันเปิดขาย</div>
   </div>
-  <div class="foot"><span>Game Production</span><span class="pg"></span></div>
+  <div class="foot"><span></span><span class="pg"></span></div>
 </section>
 
 </main>
@@ -488,8 +717,10 @@
   const total = slides.length;
   let cur = 0, busy = false;
 
-  /* page numbers and progress bars come from the slide order, so adding a slide needs no renumbering */
+  /* footer label, page number and progress bar come from the slide order, so adding a slide needs no renumbering */
   slides.forEach((s, i) => {
+    const spans = s.querySelectorAll('.foot span');
+    if (spans[0]) spans[0].textContent = s.dataset.foot || '';
     const pg = s.querySelector('.pg'); if (pg) pg.textContent = `${i + 1} / ${total}`;
     const bar = s.querySelector('.bar-fill'); if (bar) bar.style.width = `${(i + 1) / total * 100}%`;
   });
